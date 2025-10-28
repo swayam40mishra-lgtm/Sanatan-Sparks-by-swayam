@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanatan Sparks — Spiritual Journeys Redefined</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="logo">SS</div>
+        <div>
+          <h1>Sanatan Sparks</h1>
+          <p class="muted">Sanatan Se Sansaar Tak — Living Heritage, Pocket-Sized</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#circuits">Circuits</a>
+        <a href="#sparks">Sparks</a>
+        <a href="#live">Live</a>
+        <a href="#community">Community</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-left card">
+        <h2>Make Pilgrimage Personal. Make Heritage Digital.</h2>
+        <p class="muted">
+          Guided yatras, verified local lore, and spiritual short stories — crafted for Gen Z and every soul seeking meaning.
+        </p>
+
+        <div class="features">
+          <div class="feature card">
+            <h3>AI Buddy</h3>
+            <p class="muted">Your context-aware companion for circuits, rituals, and reflection.</p>
+          </div>
+          <div class="feature card">
+            <h3>Sanatan Sparks</h3>
+            <p class="muted">Cinematic shorts that preserve Sanatan Dharma’s essence.</p>
+          </div>
+          <div class="feature card">
+            <h3>Verified Lore</h3>
+            <p class="muted">Stories directly from priests, historians, and locals.</p>
+          </div>
+        </div>
+
+        <div class="card demo-tools">
+          <h3>Quick Demo Tools</h3>
+          <div class="cta">
+            <button class="btn" id="genSpark">Generate Spark</button>
+            <button class="ghost" id="planYatra">Start Path of Rama</button>
+            <button class="ghost" id="downloadData">Download Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Buddy Section -->
+      <aside class="ai-buddy card">
+        <div class="buddy-header">
+          <strong>AI Buddy</strong>
+          <span class="badge">Offline Ready</span>
+        </div>
+        <div class="chat" id="chat">
+          <div class="msg bot">Namaste. I am your Sanatan Buddy. Ask me about any place, ritual, or yatra.</div>
+        </div>
+        <div class="input-row">
+          <input id="userInput" class="input" placeholder="Ask: 'Tell me about Omkareshwar'">
+          <button class="btn" id="sendBtn">Ask</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Sparks Section -->
+    <section id="sparks">
+      <h3>Sanatan Sparks</h3>
+      <div id="sparksGrid"></div>
+
+      <section id="saryu-cave" class="mystery-section card">
+        <h3>The Saryu Cave</h3>
+        <p>The cave where many say Lord Ram left for the divine realm.</p>
+        <a href="saryu.html" class="btn">Know More</a>
+      </section>
+    </section>
+
+    <!-- Circuits & Live Events -->
+    <section class="two-col">
+      <div class="card" id="circuits">
+        <h3>Sanatan Circuits</h3>
+        <p class="muted">Interactive spiritual routes that follow the paths of Rama, Krishna, and Shiva.</p>
+        <div id="circuitsList"></div>
+      </div>
+
+      <div class="card" id="live">
+        <div class="live-header">
+          <div>
+            <strong>Live & Upcoming Events</strong>
+            <div class="muted small">Next: Dev Deepawali — Varanasi • 4 Nov</div>
+          </div>
+          <div class="tag">Plan Now</div>
+        </div>
+        <div class="live-list">
+          <div class="item"><div>Dev Deepawali — Varanasi</div><div class="muted">Plan Now</div></div>
+          <div class="item"><div>Kumbh Highlights</div><div class="muted">Watch Live</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="card" id="community">
+      <h3>Community (AI-Regulated)</h3>
+      <p class="muted">Respectful, verified voices are promoted. Share your local spiritual stories below.</p>
+      <div class="input-row">
+        <input id="postText" class="input" placeholder="Share a local story...">
+        <button class="btn" id="postBtn">Post</button>
+      </div>
+      <div id="feed" class="feed"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      Built with devotion by Swayam Mishra — Founder of Sanatan Sparks.
+    </footer>
+
+  </div>
+
+  <!-- JS Link -->
+  <script src="script.js"></script>
+</body>
+</html>
