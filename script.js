@@ -318,7 +318,70 @@ function renderTasksList(filterCategory = 'all') {
     ul.appendChild(li);
   });
 }
+// ===== Task Manager JavaScript =====
 
+// Get elements
+const taskInput = document.getElementById("taskInput");
+const addTaskBtn = document.getElementById("addTaskBtn");
+const taskList = document.getElementById("taskList");
+
+// Add task when button clicked
+addTaskBtn.addEventListener("click", addTask);
+
+// Add task when Enter key pressed
+taskInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
+
+// Function to add a new task
+function addTask() {
+  const taskText = taskInput.value.trim();
+  if (taskText === "") {
+    alert("Please enter a task!");
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent = taskText;
+
+  // Toggle complete on click
+  li.addEventListener("click", function () {
+    li.classList.toggle("completed");
+  });
+
+  // Delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.style.marginLeft = "10px";
+  deleteBtn.style.background = "#ff4d4d";
+  deleteBtn.style.color = "white";
+  deleteBtn.style.border = "none";
+  deleteBtn.style.borderRadius = "5px";
+  deleteBtn.style.padding = "5px 10px";
+  deleteBtn.style.cursor = "pointer";
+
+  deleteBtn.addEventListener("click", function (e) {
+    e.stopPropagation(); // prevent strike-through when deleting
+    li.remove();
+  });
+
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
+  taskInput.value = "";
+}
+
+// Optional: completed task style
+const style = document.createElement("style");
+style.innerHTML = `
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+    opacity: 0.7;
+  }
+`;
+document.head.appendChild(style);
 /* ============================
    BIND UI
    ============================ */
@@ -403,7 +466,70 @@ function bindUI() {
     }
   });
 }
+// ===== Task Manager JavaScript =====
 
+// Get elements
+const taskInput = document.getElementById("taskInput");
+const addTaskBtn = document.getElementById("addTaskBtn");
+const taskList = document.getElementById("taskList");
+
+// Add task when button clicked
+addTaskBtn.addEventListener("click", addTask);
+
+// Add task when Enter key pressed
+taskInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
+
+// Function to add a new task
+function addTask() {
+  const taskText = taskInput.value.trim();
+  if (taskText === "") {
+    alert("Please enter a task!");
+    return;
+  }
+
+  const li = document.createElement("li");
+  li.textContent = taskText;
+
+  // Toggle complete on click
+  li.addEventListener("click", function () {
+    li.classList.toggle("completed")
+  });
+
+  // Delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.style.marginLeft = "10px";
+  deleteBtn.style.background = "#ff4d4d";
+  deleteBtn.style.color = "white";
+  deleteBtn.style.border = "none";
+  deleteBtn.style.borderRadius = "5px";
+  deleteBtn.style.padding = "5px 10px";
+  deleteBtn.style.cursor = "pointer";
+
+  deleteBtn.addEventListener("click", function (e) {
+    e.stopPropagation(); // prevent strike-through when deleting
+    li.remove();
+  });
+
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
+  taskInput.value = "";
+}
+
+// Optional: completed task style
+const style = document.createElement("style");
+style.innerHTML = `
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+    opacity: 0.7;
+  }
+`;
+document.head.appendChild(style);
 /* ============================
    MAIN RENDER ENTRY
    ============================ */
