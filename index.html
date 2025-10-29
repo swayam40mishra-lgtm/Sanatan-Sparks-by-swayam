@@ -1,141 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanatan Sparks — Spiritual Journeys Redefined</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <!-- CSS Link -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task Manager — by Swayam Mishra</title>
+  <meta name="description" content="Task Manager — a clean daily planner by Swayam Mishra." />
+  <!-- Link your stylesheet (same folder) -->
   <link rel="stylesheet" href="style.css">
+  <!-- Hook for behavior (same folder). Script is deferred to wait for DOM. -->
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-  <div class="wrap">
-
-    <!-- Header -->
-    <header>
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <!-- Minimal SVG logo so it's pretty even without assets -->
       <div class="brand">
-        <div class="logo">SS</div>
-        <div>
-          <h1>Sanatan Sparks</h1>
-          <p class="muted">Sanatan Se Sansaar Tak — Living Heritage, Pocket-Sized</p>
+        <svg class="logo" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <rect width="48" height="48" rx="10" fill="#d4af37"></rect>
+          <text x="50%" y="58%" font-family="Poppins, Inter, sans-serif" font-weight="700" font-size="18" text-anchor="middle" fill="#111">TM</text>
+        </svg>
+        <div class="brand-text">
+          <div class="company">Task Manager</div>
+          <div class="byline">by <strong>Swayam Mishra</strong></div>
         </div>
       </div>
-      <nav>
-        <a href="#circuits">Circuits</a>
-        <a href="#sparks">Sparks</a>
-        <a href="#live">Live</a>
-        <a href="#community">Community</a>
+
+      <nav class="main-nav" aria-label="Main">
+        <a href="#today">Today</a>
+        <a href="#suggestions">Suggestions</a>
+        <a href="#history">History</a>
+        <a href="#about">About</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-left card">
-        <h2>Make Pilgrimage Personal. Make Heritage Digital.</h2>
-        <p class="muted">
-          Guided yatras, verified local lore, and spiritual short stories — crafted for Gen Z and every soul seeking meaning.
-        </p>
-
-        <div class="features">
-          <div class="feature card">
-            <h3>AI Buddy</h3>
-            <p class="muted">Your context-aware companion for circuits, rituals, and reflection.</p>
-          </div>
-          <div class="feature card">
-            <h3>Sanatan Sparks</h3>
-            <p class="muted">Cinematic shorts that preserve Sanatan Dharma’s essence.</p>
-          </div>
-          <div class="feature card">
-            <h3>Verified Lore</h3>
-            <p class="muted">Stories directly from priests, historians, and locals.</p>
-          </div>
-        </div>
-
-        <div class="card demo-tools">
-          <h3>Quick Demo Tools</h3>
-          <div class="cta">
-            <button class="btn" id="genSpark">Generate Spark</button>
-            <button class="ghost" id="planYatra">Start Path of Rama</button>
-            <button class="ghost" id="downloadData">Download Data</button>
-          </div>
+  <!-- Main content -->
+  <main class="container" id="main" role="main">
+    <!-- Hero / Quick summary -->
+    <section class="hero" id="hero">
+      <div class="hero-left">
+        <h1>Daily Planner — Simple, Focused</h1>
+        <p class="lead">A clean place to add and manage your daily tasks. No AI, just smart memory based on your past entries. Designed for fast use — add a task and get back to life.</p>
+        <div class="meta">
+          <span class="meta-item">Theme: Dark Charcoal • Gold accents</span>
+          <span class="meta-item">Owner: <strong>Swayam Mishra</strong></span>
         </div>
       </div>
 
-      <!-- AI Buddy Section -->
-      <aside class="ai-buddy card">
-        <div class="buddy-header">
-          <strong>AI Buddy</strong>
-          <span class="badge">Offline Ready</span>
-        </div>
-        <div class="chat" id="chat">
-          <div class="msg bot">Namaste. I am your Sanatan Buddy. Ask me about any place, ritual, or yatra.</div>
-        </div>
-        <div class="input-row">
-          <input id="userInput" class="input" placeholder="Ask: 'Tell me about Omkareshwar'">
-          <button class="btn" id="sendBtn">Ask</button>
-        </div>
+      <aside class="hero-right" aria-labelledby="quick-add-label">
+        <h2 id="quick-add-label">Quick Add</h2>
+        <!-- Task input area (JS will hook onto ids) -->
+        <form id="taskForm" class="task-form" action="#" novalidate>
+          <label for="taskInput" class="sr-only">New task</label>
+          <input id="taskInput" name="task" type="text" placeholder="e.g., Cricket practice at 5 PM" autocomplete="off" required/>
+
+          <div class="form-row">
+            <select id="taskCategory" name="category" aria-label="Category">
+              <option value="general">General</option>
+              <option value="study">Study</option>
+              <option value="fitness">Fitness</option>
+              <option value="content">Content</option>
+              <option value="spiritual">Spiritual</option>
+            </select>
+
+            <input id="taskTime" name="time" type="time" aria-label="Preferred time" />
+          </div>
+
+          <div class="form-row">
+            <button id="addBtn" class="btn primary" type="submit">Add Task</button>
+            <button id="suggestBtn" class="btn ghost" type="button">Suggest</button>
+          </div>
+        </form>
+
+        <div id="quickNote" class="muted small">Tip: Press Enter to add quickly.</div>
       </aside>
     </section>
 
-    <!-- Sparks Section -->
-    <section id="sparks">
-      <h3>Sanatan Sparks</h3>
-      <div id="sparksGrid"></div>
-
-      <section id="saryu-cave" class="mystery-section card">
-        <h3>The Saryu Cave</h3>
-        <p>The cave where many say Lord Ram left for the divine realm.</p>
-        <a href="saryu.html" class="btn">Know More</a>
-      </section>
+    <!-- Suggestions -->
+    <section id="suggestions" class="panel">
+      <header class="panel-head">
+        <h3>Suggestions</h3>
+        <p class="muted">Smart suggestions based on your recent tasks (local memory only).</p>
+      </header>
+      <div id="suggestList" class="suggest-list" aria-live="polite">
+        <!-- JS will populate suggestion buttons here -->
+      </div>
     </section>
 
-    <!-- Circuits & Live Events -->
-    <section class="two-col">
-      <div class="card" id="circuits">
-        <h3>Sanatan Circuits</h3>
-        <p class="muted">Interactive spiritual routes that follow the paths of Rama, Krishna, and Shiva.</p>
-        <div id="circuitsList"></div>
-      </div>
+    <!-- Today's tasks -->
+    <section id="today" class="panel">
+      <header class="panel-head">
+        <h3>Today's Tasks</h3>
+        <p class="muted">Add, edit, reorder, or mark done. Use categories to filter.</p>
 
-      <div class="card" id="live">
-        <div class="live-header">
-          <div>
-            <strong>Live & Upcoming Events</strong>
-            <div class="muted small">Next: Dev Deepawali — Varanasi • 4 Nov</div>
-          </div>
-          <div class="tag">Plan Now</div>
+        <div class="panel-actions">
+          <label for="filterCategory" class="sr-only">Filter category</label>
+          <select id="filterCategory">
+            <option value="all">All categories</option>
+            <option value="study">Study</option>
+            <option value="fitness">Fitness</option>
+            <option value="content">Content</option>
+            <option value="spiritual">Spiritual</option>
+          </select>
+
+          <button id="clearCompleted" class="btn ghost">Clear Completed</button>
         </div>
-        <div class="live-list">
-          <div class="item"><div>Dev Deepawali — Varanasi</div><div class="muted">Plan Now</div></div>
-          <div class="item"><div>Kumbh Highlights</div><div class="muted">Watch Live</div></div>
-        </div>
+      </header>
+
+      <ul id="taskList" class="task-list" aria-live="polite">
+        <!-- JS will render tasks here as <li data-id="..."> -->
+      </ul>
+
+      <div id="emptyState" class="empty muted">No tasks for today. Add something productive (or dramatic).</div>
+    </section>
+
+    <!-- History & backup -->
+    <section id="history" class="panel">
+      <header class="panel-head">
+        <h3>History & Backup</h3>
+        <p class="muted">Export or import your task history as JSON.</p>
+      </header>
+
+      <div class="history-actions">
+        <button id="exportBtn" class="btn">Export JSON</button>
+        <label for="importFile" class="btn file-btn">Import JSON
+          <input id="importFile" type="file" accept="application/json" style="display:none" />
+        </label>
+      </div>
+
+      <div id="streaks" class="streaks muted">
+        <!-- Small JS-generated streaks / summary -->
       </div>
     </section>
 
-    <!-- Community Section -->
-    <section class="card" id="community">
-      <h3>Community (AI-Regulated)</h3>
-      <p class="muted">Respectful, verified voices are promoted. Share your local spiritual stories below.</p>
-      <div class="input-row">
-        <input id="postText" class="input" placeholder="Share a local story...">
-        <button class="btn" id="postBtn">Post</button>
-      </div>
-      <div id="feed" class="feed"></div>
+    <!-- About / footer area inside main -->
+    <section id="about" class="panel">
+      <h3>About</h3>
+      <p class="muted">Task Manager — a minimal daily planner constructed for focus and habit memory. No accounts. Data stored locally in your browser unless you export it.</p>
+      <p class="muted">Built for <strong>Swayam Mishra</strong>. Designed to be extended into a full habit assistant later.</p>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-      Built with devotion by Swayam Mishra — Founder of Sanatan Sparks.
-    </footer>
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Task Manager</div>
+      <div class="muted">Founded by <strong>Swayam Mishra</strong></div>
+    </div>
+  </footer>
 
-  </div>
-
-  <!-- JS Link -->
-  <script src="script.js"></script>
+  <!-- Small accessibility helpers and initial inline script (safe & minimal) -->
+  <script>
+    // Basic runtime fallbacks so page shows current year and progressive enhancement works.
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Prevent form submission navigation — actual behavior is handled in script.js
+    document.getElementById('taskForm')?.addEventListener('submit', e => e.preventDefault());
+  </script>
 </body>
 </html>
