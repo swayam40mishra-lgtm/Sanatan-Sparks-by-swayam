@@ -34,7 +34,249 @@
       </nav>
     </div>
   </header>
+<!-- ===== Study Planner (HTML-only) — paste into main page body ===== -->
+<section id="study-planner" aria-labelledby="planner-title" style="margin:2rem 0;">
+  <header>
+    <h2 id="planner-title">Study Planner — Mission Dashboard</h2>
+    <p class="muted">Mission: <strong id="missionName">Mission 99 : 75 HARD DAYS</strong></p>
+  </header>
 
+  <!-- CONFIG / META -->
+  <div id="planner-config" aria-label="Planner configuration">
+    <div>
+      <label for="missionInput">Mission name</label>
+      <input id="missionInput" name="mission" type="text" value="Mission 99 :75 HARD DAYS" />
+    </div>
+
+    <div>
+      <label for="studyTarget">Daily target (study hours)</label>
+      <input id="studyTarget" name="studyTarget" type="number" min="0" step="0.25" value="4" />
+      <small>Enter hours (e.g., 3.5)</small>
+    </div>
+
+    <div>
+      <label for="breakLen">Break after (hours)</label>
+      <input id="breakLen" name="breakLen" type="number" step="0.25" value="0.5" />
+      <small>Default: 0.5 (30 minutes)</small>
+    </div>
+
+    <div>
+      <label for="wakeTime">Wake time</label>
+      <input id="wakeTime" name="wakeTime" type="time" />
+
+      <label for="sleepTime" style="margin-left:8px">Sleep time</label>
+      <input id="sleepTime" name="sleepTime" type="time" />
+    </div>
+
+    <div>
+      <label for="schoolToggle">School today (optional)</label>
+      <input id="schoolToggle" name="schoolToggle" type="checkbox" />
+      <label for="schoolFrom">From</label>
+      <input id="schoolFrom" name="schoolFrom" type="time" />
+      <label for="schoolTo">To</label>
+      <input id="schoolTo" name="schoolTo" type="time" />
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- WEEKLY SUBJECTS (Mon - Sun) -->
+  <div id="weekly-subjects" aria-label="Weekly subjects">
+    <h3>Saved Daily Subjects — Mon to Sun</h3>
+    <p class="muted">Choose the main subjects you study on each day. This is used for quick suggestions and auto-scheduling.</p>
+
+    <div class="week-grid" role="group" aria-label="Week days">
+      <!-- Day template — repeat for all days -->
+      <article class="day" data-day="monday" aria-labelledby="monday-label">
+        <h4 id="monday-label">Monday</h4>
+        <label>Subjects (comma-separated)</label>
+        <input data-day-subjects="monday" placeholder="e.g., Maths, Chemistry, Hindi" />
+
+        <label>Primary daily task (short)</label>
+        <input data-day-primary="monday" placeholder="e.g., Maths - 15 RD Sharma Qs" />
+
+        <label>Auto-suggest topic (optional)</label>
+        <input data-day-suggest="monday" placeholder="e.g., Chapter: Algebra — Polynomials" />
+      </article>
+
+      <article class="day" data-day="tuesday" aria-labelledby="tuesday-label">
+        <h4 id="tuesday-label">Tuesday</h4>
+        <input data-day-subjects="tuesday" placeholder="e.g., SST, English" />
+        <input data-day-primary="tuesday" placeholder="e.g., SST - Complete chapter & practice" />
+        <input data-day-suggest="tuesday" placeholder="e.g., Topic: Rivers / Map practice" />
+      </article>
+
+      <article class="day" data-day="wednesday" aria-labelledby="wednesday-label">
+        <h4 id="wednesday-label">Wednesday</h4>
+        <input data-day-subjects="wednesday" placeholder="e.g., Maths, Science" />
+        <input data-day-primary="wednesday" placeholder="e.g., Maths - 15 RD Questions" />
+        <input data-day-suggest="wednesday" placeholder="e.g., Topic: Geometry practice" />
+      </article>
+
+      <article class="day" data-day="thursday" aria-labelledby="thursday-label">
+        <h4 id="thursday-label">Thursday</h4>
+        <input data-day-subjects="thursday" placeholder="e.g., Hindi, Chemistry" />
+        <input data-day-primary="thursday" placeholder="e.g., Chemistry - 4 pages notes" />
+        <input data-day-suggest="thursday" placeholder="e.g., Topic: Metals & Non-metals" />
+      </article>
+
+      <article class="day" data-day="friday" aria-labelledby="friday-label">
+        <h4 id="friday-label">Friday</h4>
+        <input data-day-subjects="friday" placeholder="e.g., Maths, SST" />
+        <input data-day-primary="friday" placeholder="e.g., Maths - 15 RD Questions" />
+        <input data-day-suggest="friday" placeholder="e.g., Topic: Algebra revision" />
+      </article>
+
+      <article class="day" data-day="saturday" aria-labelledby="saturday-label">
+        <h4 id="saturday-label">Saturday</h4>
+        <input data-day-subjects="saturday" placeholder="e.g., Content creation, Practice" />
+        <input data-day-primary="saturday" placeholder="e.g., Practice tests / extra" />
+        <input data-day-suggest="saturday" placeholder="e.g., Topic: Full mock test" />
+      </article>
+
+      <article class="day" data-day="sunday" aria-labelledby="sunday-label">
+        <h4 id="sunday-label">Sunday</h4>
+        <input data-day-subjects="sunday" placeholder="e.g., Revision, English" />
+        <input data-day-primary="sunday" placeholder="e.g., Revision of weak topics" />
+        <input data-day-suggest="sunday" placeholder="e.g., Topic: Revision list" />
+      </article>
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- DAILY TASK TEMPLATE (for future JS to clone) -->
+  <template id="task-row-template">
+    <div class="task-row" role="group">
+      <label>Subject</label>
+      <select class="task-subject">
+        <option value="maths">Maths</option>
+        <option value="science">Science</option>
+        <option value="sst">SST</option>
+        <option value="hindi">Hindi</option>
+        <option value="english">English</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label>Task description</label>
+      <input class="task-desc" placeholder="e.g., Chapter name, pages or Qs" />
+
+      <label>Type</label>
+      <select class="task-type">
+        <option value="chapter">Complete chapter</option>
+        <option value="pages">Pages</option>
+        <option value="questions">Questions practice</option>
+      </select>
+
+      <label>Target</label>
+      <input class="task-target" placeholder="e.g., 4 pages / 15 Qs" />
+    </div>
+  </template>
+
+  <!-- DAILY PLAN AREA -->
+  <section id="today-plan" aria-labelledby="today-plan-title">
+    <h3 id="today-plan-title">Today's Plan (preview)</h3>
+
+    <div id="plan-summary" aria-live="polite">
+      <!-- Future JS will populate this with computed daily schedule: wake/sleep, school, breaks, total study hours -->
+      <p class="muted">Preview will show scheduled sessions, total study hours, breaks count, and suggested next topic.</p>
+
+      <dl>
+        <dt>Scheduled study hours (today)</dt>
+        <dd><output id="scheduledHours">—</output> hrs</dd>
+
+        <dt>Previous day study hours</dt>
+        <dd><output id="previousDayHours">—</output> hrs</dd>
+
+        <dt>Last week average (daily)</dt>
+        <dd><output id="lastWeekAvg">—</output> hrs</dd>
+      </dl>
+    </div>
+
+    <div id="daily-task-list" aria-label="Daily tasks">
+      <!-- JS will inject task rows here (based on selected subjects and saved daily subjects) -->
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- STORAGE / EXPORT / IMPORT -->
+  <section id="planner-storage" aria-label="Planner storage controls">
+    <button id="savePlannerBtn" type="button">Save Plan (Local)</button>
+    <button id="loadPlannerBtn" type="button">Load Plan</button>
+    <button id="clearPlannerBtn" type="button">Clear Saved Plan</button>
+
+    <button id="exportPlannerBtn" type="button">Export JSON</button>
+    <label for="importPlannerFile" style="display:inline-block; margin-left:8px;">
+      Import JSON
+      <input id="importPlannerFile" type="file" accept="application/json" />
+    </label>
+
+    <div id="savedPlansList" aria-live="polite" style="margin-top:8px;">
+      <!-- JS will render a list of saved plans here -->
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- QUOTES (20 saved quotes slot) -->
+  <section id="daily-quote" aria-labelledby="quote-title">
+    <h3 id="quote-title">Daily Motivation</h3>
+    <div id="quoteDisplay" role="note" aria-live="polite">
+      <p class="muted">Your daily quote will appear here.</p>
+    </div>
+
+    <details>
+      <summary>Manage stored quotes (20 slots)</summary>
+      <ol id="quoteList" style="margin-top:8px;">
+        <!-- Pre-create 20 inputs for quotes; JS will use these to save quotes -->
+        <li><input class="quote-input" data-quote-index="0" placeholder="Quote 1" /></li>
+        <li><input class="quote-input" data-quote-index="1" placeholder="Quote 2" /></li>
+        <li><input class="quote-input" data-quote-index="2" placeholder="Quote 3" /></li>
+        <li><input class="quote-input" data-quote-index="3" placeholder="Quote 4" /></li>
+        <li><input class="quote-input" data-quote-index="4" placeholder="Quote 5" /></li>
+        <li><input class="quote-input" data-quote-index="5" placeholder="Quote 6" /></li>
+        <li><input class="quote-input" data-quote-index="6" placeholder="Quote 7" /></li>
+        <li><input class="quote-input" data-quote-index="7" placeholder="Quote 8" /></li>
+        <li><input class="quote-input" data-quote-index="8" placeholder="Quote 9" /></li>
+        <li><input class="quote-input" data-quote-index="9" placeholder="Quote 10" /></li>
+        <li><input class="quote-input" data-quote-index="10" placeholder="Quote 11" /></li>
+        <li><input class="quote-input" data-quote-index="11" placeholder="Quote 12" /></li>
+        <li><input class="quote-input" data-quote-index="12" placeholder="Quote 13" /></li>
+        <li><input class="quote-input" data-quote-index="13" placeholder="Quote 14" /></li>
+        <li><input class="quote-input" data-quote-index="14" placeholder="Quote 15" /></li>
+        <li><input class="quote-input" data-quote-index="15" placeholder="Quote 16" /></li>
+        <li><input class="quote-input" data-quote-index="16" placeholder="Quote 17" /></li>
+        <li><input class="quote-input" data-quote-index="17" placeholder="Quote 18" /></li>
+        <li><input class="quote-input" data-quote-index="18" placeholder="Quote 19" /></li>
+        <li><input class="quote-input" data-quote-index="19" placeholder="Quote 20" /></li>
+      </ol>
+
+      <div style="margin-top:8px;">
+        <button id="saveQuotesBtn" type="button">Save Quotes</button>
+        <button id="randomQuoteBtn" type="button">Show Today's Quote</button>
+      </div>
+    </details>
+  </section>
+
+  <hr/>
+
+  <!-- SUMMARY & STATS -->
+  <section id="planner-stats" aria-label="Planner summary">
+    <h3>Summary & Stats</h3>
+    <ul>
+      <li>Total scheduled study hours (today): <output id="statTodayTotal">—</output> hrs</li>
+      <li>Breaks planned: <output id="statBreaks">—</output></li>
+      <li>Previous day hours: <output id="statPrevDay">—</output> hrs</li>
+      <li>Last 7-day average: <output id="stat7DayAvg">—</output> hrs/day</li>
+    </ul>
+  </section>
+
+  <footer aria-label="Planner footer" style="margin-top:1rem;">
+    <small class="muted">Planner by <strong>Swayam Mishra</strong>. Data fields are ready to be hooked with JavaScript for storage, suggestions, and scheduling logic.</small>
+  </footer>
+</section>
+<!-- ===== End Study Planner ===== -->
   <!-- Main content -->
   <main class="container" id="main" role="main">
     <!-- Hero / Quick summary -->
