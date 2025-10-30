@@ -21,7 +21,217 @@
   font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
 }
+/* =========================
+   Study Planner — Beautiful Theme
+   Palette: Midnight Indigo & Amber (+ Mint accents)
+   Scope: #study-planner
+   Paste into style.css or inside a <style> in head
+   ========================= */
 
+:root{
+  --bg: #07122B;        /* Midnight Indigo */
+  --card: #0F2740;      /* Deep Slate */
+  --muted: #A3B0C3;     /* Soft Steel */
+  --text: #F6F8FB;      /* Near White */
+  --accent: #FFB86B;    /* Amber (primary) */
+  --accent-2: #7EF6C2;  /* Mint (success) */
+  --danger: #FF6B6B;    /* Coral (danger) */
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+  --radius: 12px;
+  --shadow-1: 0 12px 40px rgba(2,6,18,0.6);
+  --ring: 0 0 18px rgba(255,184,107,0.12);
+  --max-width: 1100px;
+  --ease: cubic-bezier(.2,.9,.2,1);
+  font-family: 'Inter', 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial;
+}
+
+/* Basic reset for planner area only */
+#study-planner {
+  display: block;
+  max-width: var(--max-width);
+  margin: 28px auto;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--shadow-1);
+  color: var(--text);
+}
+
+/* Header */
+#study-planner header { margin-bottom: 14px; display:flex; flex-direction:column; gap:6px; }
+#study-planner h2 { margin:0; font-size:20px; color:var(--accent); letter-spacing:0.2px; }
+#study-planner .muted { color:var(--muted); font-size:13px; }
+
+/* Layout grid for config and main */
+#planner-config {
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap:12px;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+/* Simple input group styling — spans across grid columns */
+#planner-config > div {
+  grid-column: span 4;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* Make first row fields wider on small screens */
+#planner-config input[type="text"],
+#planner-config input[type="number"],
+#planner-config input[type="time"],
+#planner-config select {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
+  border: 1px solid rgba(255,255,255,0.03);
+  color: var(--text);
+  padding:10px 12px;
+  border-radius: 10px;
+  font-size:14px;
+  outline: none;
+  transition: box-shadow 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+#planner-config input[type="text"]:focus,
+#planner-config input[type="number"]:focus,
+#planner-config input[type="time"]:focus,
+#planner-config select:focus {
+  box-shadow: var(--ring);
+  border-color: rgba(255,184,107,0.5);
+}
+
+/* Week grid */
+.week-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+  margin-top:10px;
+}
+
+.day {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  padding:12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.02);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.day h4 { margin:0; color: var(--accent); font-size:15px; }
+.day label { font-size:12px; color:var(--muted); }
+.day input[type="text"], .day input[type="email"], .day input[type="search"] {
+  padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:var(--text);
+}
+
+/* Template area (hidden but usable) */
+#task-row-template { display:none; }
+
+/* Today's plan */
+#today-plan { margin-top:18px; padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.005), rgba(255,255,255,0.003)); border:1px solid rgba(255,255,255,0.02); }
+#today-plan h3 { margin-top:0; color:var(--accent); }
+
+/* Plan summary definition list */
+#plan-summary dl { display:grid; grid-template-columns: 1fr 1fr; gap:10px 18px; margin:10px 0; align-items:center; }
+#plan-summary dt { color:var(--muted); font-size:13px; }
+#plan-summary dd { margin:0; font-weight:700; color:var(--text); text-align:right; }
+
+/* Daily task list area */
+#daily-task-list { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+
+/* Task row card */
+.task-row {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.02);
+}
+.task-row label { flex:0 0 70px; font-size:13px; color:var(--muted); }
+.task-row .task-subject, .task-row .task-type, .task-row .task-target, .task-row .task-desc {
+  background:transparent; border:1px solid rgba(255,255,255,0.03); border-radius:8px; padding:8px 10px; color:var(--text); font-size:14px;
+}
+.task-row .task-desc { flex:1; }
+
+/* Buttons globally in planner */
+#study-planner button {
+  background: linear-gradient(90deg, var(--accent), #ffbf86);
+  color:#111;
+  border:0;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  transition: transform 160ms var(--ease), box-shadow 200ms var(--ease);
+}
+#study-planner button.ghost {
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.03);
+  color:var(--muted);
+}
+#study-planner button:active { transform:translateY(1px); }
+#study-planner button:hover { box-shadow: var(--ring); }
+
+/* Storage and saved plans list */
+#planner-storage { margin-top:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+#savedPlansList { width:100%; margin-top:8px; }
+
+/* Quotes area */
+#daily-quote { margin-top:14px; padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.005), transparent); border:1px solid rgba(255,255,255,0.02); }
+#quoteDisplay { font-style:italic; font-size:15px; padding:10px; color:var(--text); }
+details summary { cursor:pointer; color:var(--accent); font-weight:700; margin-top:8px; }
+#quoteList { display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; margin-top:10px; }
+.quote-input { width:100%; padding:8px 10px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--text); }
+
+/* Stats */
+#planner-stats { margin-top:14px; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); background: linear-gradient(180deg, rgba(255,255,255,0.004), rgba(255,255,255,0.002)); }
+#planner-stats ul { margin:0; padding:0; list-style:none; display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; }
+#planner-stats li { color:var(--muted); font-size:14px; }
+
+/* Footer small */
+#study-planner footer { margin-top:12px; color:var(--muted); font-size:13px; }
+
+/* Utilities */
+.small { font-size:13px; color:var(--muted); }
+.pill { display:inline-block; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,0.02); color:var(--accent-2); font-weight:700; }
+
+/* Danger badge */
+.badge-danger { background: linear-gradient(90deg, var(--danger), #ff8a8a); padding:6px 10px; border-radius:999px; color:#111; font-weight:700; }
+
+/* Accessibility focus states */
+#study-planner input:focus, #study-planner select:focus, #study-planner textarea:focus, #study-planner button:focus {
+  outline: none;
+  box-shadow: var(--ring);
+  border-color: rgba(255,184,107,0.45);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  #planner-config { grid-template-columns: repeat(6, 1fr); }
+  .week-grid { grid-template-columns: repeat(2, 1fr); }
+  #plan-summary dl { grid-template-columns: 1fr; }
+  #planner-stats ul { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  #planner-config { grid-template-columns: repeat(2, 1fr); gap:8px; }
+  .week-grid { grid-template-columns: 1fr; }
+  .day { padding:10px; }
+  .task-row { flex-direction:column; align-items:stretch; gap:8px; }
+  .task-row label { display:block; }
+}
+
+/* Small entrance animation so the planner feels alive but not dramatic */
+#study-planner { transform: translateY(6px); opacity:0; animation: plannerEnter 520ms var(--ease) forwards 80ms; }
+@keyframes plannerEnter {
+  to { transform:none; opacity:1; }
+}
 /* ========== RESET-ish ========== */
 *{box-sizing:border-box}
 html,body{height:100%}
