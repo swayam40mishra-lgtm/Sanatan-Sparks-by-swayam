@@ -2,6 +2,174 @@
    By: (implicitly) me. For: Swayam Mishra.
    Paste as `script.js` and keep it deferred in index.html.
 */
+/* ===== Mission 99 Dashboard — JavaScript ===== */
+
+// Daily Quotes (20 total)
+const quotes = [
+  "Discipline beats motivation — always.",
+  "Small steps, big results.",
+  "Grind in silence, shine in boards.",
+  "Your books are your gym today.",
+  "No shortcuts, just smart work.",
+  "Doubt kills more dreams than failure ever will.",
+  "Consistency creates miracles.",
+  "The harder you work, the luckier you get.",
+  "Be proud of your effort, not just your marks.",
+  "Mission 99: You’re building legacy, not scores.",
+  "Every chapter is one brick in your success.",
+  "If you rest now, you’ll rust later.",
+  "The future thanks the focused you.",
+  "Your goal should scare you a little.",
+  "Marks fade, discipline stays forever.",
+  "Stay hungry, stay humble.",
+  "Hard work: because talent isn’t enough.",
+  "You don’t need perfect days, just persistent ones.",
+  "99% mindset, 1% excuses.",
+  "Focus beats anxiety. Always."
+];
+
+// Display random daily quote
+function showDailyQuote() {
+  const quoteBox = document.querySelector('.quote-box');
+  if (quoteBox) {
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteBox.textContent = `"${quote}"`;
+  }
+}
+
+// Initialize Dashboard Data
+let tasks = JSON.parse(localStorage.getItem('mission99_tasks')) || [];
+
+// Add Entry Function
+function addEntry(subject, task, hours, day) {
+  const entry = {
+    subject,
+    task,
+    hours: Number(hours),
+    day,
+    date: new Date().toLocaleDateString()
+  };
+  tasks.push(entry);
+  localStorage.setItem('mission99_tasks', JSON.stringify(tasks));
+  renderDashboard();
+}
+
+// Render Dashboard
+function renderDashboard() {
+  const container = document.querySelector('#dashboardEntries');
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (tasks.length === 0) {
+    container.innerHTML = '<p>No tasks added yet.</p>';
+    return;
+  }
+
+  tasks.forEach((t, i) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+      <h3>${t.subject}</h3>
+      <p><strong>Task:</strong> ${t.task}</p>
+      <p><strong>Hours:</strong> ${t.hours}</p>
+      <p><strong>Day:</strong> ${t.day}</p>
+      <p class="small">${t.date}</p>
+      <button onclick="deleteEntry(${i})">Delete</button>
+    `;
+    container.appendChild(card);
+  });
+
+  updateStats();
+}
+
+// Delete Entry
+function deleteEntry(index) {
+  tasks.splice(index, 1);
+  localStorage.setItem('mission99_tasks', JSON.stringify(tasks));
+  renderDashboard();
+}
+
+// Update previous day hours + weekly average
+function updateStats() {
+  const prevDay = document.querySelector('#prevDayHours');
+  const weeklyAvg = document.querySelector('#weeklyAvg');
+
+  if (!prevDay || !weeklyAvg) return;
+
+  let total = 0;
+  let today = new Date().toLocaleDateString();
+  let yesterdayHours = 0;
+
+  tasks.forEach(t => {
+    total += t.hours;
+    if (t.date !== today) yesterdayHours += t.hours;
+  });
+
+  const avg = (total / 7).toFixed(1);
+  prevDay.textContent = `${yesterdayHours} hrs`;
+  weeklyAvg.textContent = `${avg} hrs/day`;
+}
+
+// Generate Plan Button
+function generatePlan() {
+  const output = document.querySelector('#generatedPlan');
+  if (!output) return;
+
+  if (tasks.length === 0) {
+    output.innerHTML = `<p>Add a few study entries first!</p>`;
+    return;
+  }
+
+  // Simple AI-like suggestion logic
+  const suggestion = [];
+  const bySubject = {};
+
+  tasks.forEach(t => {
+    if (!bySubject[t.subject]) bySubject[t.subject] = 0;
+    bySubject[t.subject] += t.hours;
+  });
+
+  for (const [sub, hrs] of Object.entries(bySubject)) {
+    if (sub.toLowerCase().includes('math')) {
+      suggestion.push(`${sub}: 15 RD Sharma questions or revision.`);
+    } else if (sub.toLowerCase().includes('sci')) {
+      suggestion.push(`${sub}: Revise 4 pages or complete one topic.`);
+    } else if (sub.toLowerCase().includes('sst')) {
+      suggestion.push(`${sub}: Complete one chapter + 10 Q&A practice.`);
+    } else if (sub.toLowerCase().includes('eng') || sub.toLowerCase().includes('hin')) {
+      suggestion.push(`${sub}: Read 2 pages or write one paragraph.`);
+    } else {
+      suggestion.push(`${sub}: Focus on next pending topic for 1 hour.`);
+    }
+  }
+
+  output.innerHTML = `
+    <h3>Suggested Plan</h3>
+    <ul>${suggestion.map(s => `<li>${s}</li>`).join('')}</ul>
+  `;
+}
+
+// Add event listener to form (if exists)
+document.addEventListener('DOMContentLoaded', () => {
+  showDailyQuote();
+  renderDashboard();
+
+  const form = document.querySelector('#entryForm');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const subject = document.querySelector('#subject').value;
+      const task = document.querySelector('#task').value;
+      const hours = document.querySelector('#hours').value;
+      const day = document.querySelector('#day').value;
+      addEntry(subject, task, hours, day);
+      form.reset();
+    });
+  }
+
+  const genBtn = document.querySelector('#generatePlan');
+  if (genBtn) genBtn.addEventListener('click', generatePlan);
+});
 
 /* ============================no 
    CONFIG & STORAGE
