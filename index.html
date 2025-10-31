@@ -3,153 +3,279 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Task Manager — by Swayam Mishra</title>
-  <meta name="description" content="Task Manager — a clean daily planner by Swayam Mishra." />
-  <!-- Link your stylesheet (same folder) -->
-  <link rel="stylesheet" href="style.css">
-  <!-- Hook for behavior (same folder). Script is deferred to wait for DOM. -->
-  <script src="script.js" defer></script>
+  <title>Study Planner Dashboard — Mission 99</title>
+  <meta name="description" content="Study Planner Dashboard — Mission 99 by Swayam Mishra. Plan daily study, auto-generate schedules, track history and performance." />
+  <!--
+    NOTE: This file intentionally contains only HTML (structure & semantics).
+    Add your CSS and JS files later; plenty of id/class hooks are included.
+  -->
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <!-- Minimal SVG logo so it's pretty even without assets -->
-      <div class="brand">
-        <svg class="logo" width="46" height="46" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-          <rect width="48" height="48" rx="10" fill="#d4af37"></rect>
-          <text x="50%" y="58%" font-family="Poppins, Inter, sans-serif" font-weight="700" font-size="18" text-anchor="middle" fill="#111">TM</text>
+  <!-- ===== Header / Mission Bar ===== -->
+  <header id="app-header" role="banner" aria-labelledby="app-title" style="padding:1rem 1.25rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <!-- Minimal inline logo SVG (styling later) -->
+        <svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="64" height="64" rx="10" fill="#000000"></rect>
+          <text x="50%" y="58%" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#ffffff">TM</text>
         </svg>
-        <div class="brand-text">
-          <div class="company">Task Manager</div>
-          <div class="byline">by <strong>Swayam Mishra</strong></div>
+
+        <div>
+          <h1 id="app-title" style="margin:0;">Study Planner Dashboard</h1>
+          <div style="font-size:0.95rem;color:#444;" id="mission-strip">
+            Mission: <strong id="mission-title">Mission 99 : 75 HARD DAYS</strong>
+          </div>
         </div>
       </div>
 
-      <nav class="main-nav" aria-label="Main">
-        <a href="#today">Today</a>
-        <a href="#suggestions">Suggestions</a>
-        <a href="#history">History</a>
-        <a href="#about">About</a>
-      </nav>
+      <div style="text-align:right;">
+        <div id="quoteDisplay" aria-live="polite" style="font-style:italic;">“One small comeback can change the day.”</div>
+        <div style="font-size:0.85rem;color:#666;margin-top:6px;">Founder: <strong>Swayam Mishra</strong></div>
+      </div>
     </div>
   </header>
-<!-- ===== Study Planner (HTML-only) — paste into main page body ===== -->
-<section id="study-planner" aria-labelledby="planner-title" style="margin:2rem 0;">
-  <header>
-    <h2 id="planner-title">Study Planner — Mission Dashboard</h2>
-    <p class="muted">Mission: <strong id="missionName">Mission 99 : 75 HARD DAYS</strong></p>
-  </header>
 
-  <!-- CONFIG / META -->
-  <div id="planner-config" aria-label="Planner configuration">
+  <main id="main" role="main" style="padding:1rem 1.25rem;">
+    <!-- ===== Two-column layout (editor left, dashboard right) ===== -->
+    <div id="layout" style="display:flex;gap:1.25rem;flex-wrap:wrap;">
+      <!-- ===== Editor / Entry Form (left) ===== -->
+      <section id="planner-editor" aria-labelledby="editor-heading" style="flex:1 1 520px;min-width:300px;">
+        <h2 id="editor-heading">Add / Edit Daily Entry</h2>
+
+        <form id="planner-form" autocomplete="off" novalidate>
+          <fieldset>
+            <legend class="sr-only">Basic day settings</legend>
+
+            <div>
+              <label for="entryDate">Date</label>
+              <input id="entryDate" name="date" type="date" />
+            </div>
+
+            <div>
+              <label for="wakeTime">Wake time</label>
+              <input id="wakeTime" name="wakeTime" type="time" />
+            </div>
+
+            <div>
+              <label for="sleepTime">Sleep time</label>
+              <input id="sleepTime" name="sleepTime" type="time" />
+            </div>
+
+            <div>
+              <label for="studyTarget">Planned study hours (today)</label>
+              <input id="studyTarget" name="studyTarget" type="number" min="0" step="0.25" placeholder="e.g., 4" />
+            </div>
+
+            <div>
+              <label for="breakInterval">Break interval (minutes)</label>
+              <select id="breakInterval" name="breakInterval">
+                <option value="25">25</option>
+                <option value="30" selected>30</option>
+                <option value="45">45</option>
+                <option value="60">60</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="schoolToggle">School today</label>
+              <input id="schoolToggle" name="schoolToggle" type="checkbox" />
+              <label for="schoolFrom">From</label>
+              <input id="schoolFrom" name="schoolFrom" type="time" />
+              <label for="schoolTo">To</label>
+              <input id="schoolTo" name="schoolTo" type="time" />
+            </div>
+
+            <div>
+              <label for="mealBreakfast">Breakfast time</label>
+              <input id="mealBreakfast" name="mealBreakfast" type="time" />
+            </div>
+            <div>
+              <label for="mealLunch">Lunch time</label>
+              <input id="mealLunch" name="mealLunch" type="time" />
+            </div>
+            <div>
+              <label for="mealDinner">Dinner time</label>
+              <input id="mealDinner" name="mealDinner" type="time" />
+            </div>
+
+          </fieldset>
+
+          <hr/>
+
+          <!-- Repeatable Tasks area -->
+          <fieldset>
+            <legend>Tasks for the day</legend>
+            <p class="muted">Add one task per row. Give a short target (e.g., "15 RD Questions", "4 pages").</p>
+
+            <div id="tasksArea" aria-live="polite">
+              <!-- Example static task row - JS will replicate/remove dynamically later -->
+              <div class="task-row" data-index="0">
+                <label>Subject</label>
+                <select class="task-subject" name="subject-0">
+                  <option value="maths">Maths</option>
+                  <option value="science">Science</option>
+                  <option value="sst">SST</option>
+                  <option value="hindi">Hindi</option>
+                  <option value="english">English</option>
+                  <option value="other">Other</option>
+                </select>
+
+                <label>Task</label>
+                <input class="task-desc" name="desc-0" type="text" placeholder="e.g., RD Sharma — 15 Qs" />
+
+                <label>Target / estimate</label>
+                <input class="task-target" name="target-0" type="text" placeholder="e.g., 15 Qs / 4 pages / 1 chapter" />
+
+                <label>Est. hrs (opt)</label>
+                <input class="task-hours" name="hours-0" type="number" step="0.25" min="0" placeholder="e.g., 1" />
+
+                <button type="button" class="remove-task" aria-label="Remove this task">Remove</button>
+              </div>
+            </div>
+
+            <div style="margin-top:0.75rem;">
+              <button type="button" id="addTaskRowBtn">+ Add task row</button>
+            </div>
+          </fieldset>
+
+          <hr/>
+
+          <!-- Uploads / Resources -->
+          <fieldset>
+            <legend>Resources (notes / files)</legend>
+            <p class="muted">Attach study notes or links for the day (saved locally).</p>
+            <input id="resourceUpload" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" />
+            <div id="resourcesList" aria-live="polite">
+              <!-- JS will list uploaded resources here -->
+            </div>
+          </fieldset>
+
+          <div style="margin-top:0.75rem;">
+            <button type="button" id="saveEntryBtn">Save Entry</button>
+            <button type="button" id="clearEntryBtn">Clear</button>
+            <label style="margin-left:8px;">
+              <input id="autoSaveToggle" type="checkbox" /> Auto-save drafts
+            </label>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== Dashboard / Entries (right) ===== -->
+      <aside id="planner-dashboard" aria-labelledby="dashboard-heading" style="flex:1 1 420px;min-width:300px;">
+        <h2 id="dashboard-heading">Saved Entries</h2>
+        <p class="muted">Cards below show your saved daily entries. Click a card to load it into the editor.</p>
+
+        <div id="controls" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.5rem 0;">
+          <select id="filterRange">
+            <option value="all">All</option>
+            <option value="today">Today</option>
+            <option value="week">This week</option>
+            <option value="month">This month</option>
+          </select>
+
+          <select id="filterSubject">
+            <option value="all">All subjects</option>
+            <option value="maths">Maths</option>
+            <option value="science">Science</option>
+            <option value="sst">SST</option>
+            <option value="hindi">Hindi</option>
+            <option value="english">English</option>
+          </select>
+
+          <button type="button" id="refreshDashboardBtn">Refresh</button>
+          <button type="button" id="exportAllBtn">Export All</button>
+        </div>
+
+        <div id="entriesList" aria-live="polite" style="display:flex;flex-direction:column;gap:0.75rem;">
+          <!-- Example static sample card — real cards generated by JS -->
+          <article class="entry-card" data-date="2025-10-29" aria-label="Entry for 2025-10-29">
+            <header>
+              <strong class="entry-date">2025-10-29</strong>
+              <div class="entry-summary">Planned 4.0 hrs • 3 tasks • Break every 30 min</div>
+            </header>
+            <div class="entry-meta">
+              <div>Wake: 05:00 • Sleep: 22:30</div>
+              <div>School: 07:00–14:00</div>
+            </div>
+            <ul class="entry-tasks">
+              <li>Maths — RD Sharma: 15 Qs • 1.5 hr</li>
+              <li>Science — Metals & Non-metals: 4 pages • 1.0 hr</li>
+              <li>English — Writing practice • 1.5 hr</li>
+            </ul>
+            <footer style="margin-top:6px;">
+              <button class="load-entry">Load</button>
+              <button class="delete-entry">Delete</button>
+            </footer>
+          </article>
+
+          <!-- More cards will be generated by the script -->
+        </div>
+
+        <!-- Quick stats panel -->
+        <div id="quick-stats" style="margin-top:1rem;">
+          <h3>Quick Summary</h3>
+          <div>
+            <div>Yesterday: <strong id="stat-prev-hours">—</strong> hrs</div>
+            <div>This week avg: <strong id="stat-week-hours">—</strong> hrs/day</div>
+            <div>Most studied: <strong id="stat-mfreq">—</strong></div>
+            <div>Streak: <strong id="stat-streak">—</strong> days</div>
+          </div>
+
+          <!-- Chart placeholder - will be drawn by JS/CSS later -->
+          <div id="chartPlaceholder" aria-hidden="true" style="margin-top:0.5rem;">
+            <svg id="progressChart" width="100%" height="80" viewBox="0 0 400 80" preserveAspectRatio="none" role="img" aria-hidden="true">
+              <rect width="100%" height="100%" fill="none"></rect>
+              <!-- JS will draw bars here -->
+            </svg>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <hr style="margin:1.25rem 0;" />
+
+    <!-- ===== Generate Plan Area ===== -->
+    <section id="generate-plan" aria-labelledby="generate-title">
+      <h2 id="generate-title">Generate Plan</h2>
+      <p class="muted">Generate a schedule for a date based on your saved entries, yesterday's hours, and weekly patterns.</p>
+
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
+        <label for="generateForDate">Generate for</label>
+        <input id="generateForDate" type="date" />
+        <button type="button" id="generatePlanBtn">Generate Plan</button>
+        <button type="button" id="applyGeneratedBtn">Apply to Form</button>
+        <button type="button" id="saveGeneratedBtn" class="ghost">Save Generated</button>
+      </div>
+
+      <div id="generatedPlanPreview" aria-live="polite" style="margin-top:0.75rem;">
+        <p class="muted">No plan generated yet. Generated plan preview will appear here with timeslots, breaks and task assignments.</p>
+      </div>
+    </section>
+
+    <hr style="margin:1.25rem 0;" />
+
+    <!-- ===== Founder Message & Footer ===== -->
+    <section id="founder-note" aria-labelledby="founder-title" style="margin-top:0.5rem;">
+      <h3 id="founder-title">A short note</h3>
+      <p id="founder-message">
+        From the founder's desk — <strong>Swayam Mishra</strong>: &quot;Consistency over intensity. Plan well, follow the plan, and adjust honestly. You're building a habit, not a one-day miracle.&quot;
+      </p>
+    </section>
+  </main>
+
+  <footer id="app-footer" role="contentinfo" style="padding:1rem 1.25rem;">
     <div>
-      <label for="missionInput">Mission name</label>
-      <input id="missionInput" name="mission" type="text" value="Mission 99 :75 HARD DAYS" />
+      <small class="muted">This HTML includes full structure for a study planner dashboard. Add CSS and JS to finish the UI and behavior.</small>
     </div>
+  </footer>
 
-    <div>
-      <label for="studyTarget">Daily target (study hours)</label>
-      <input id="studyTarget" name="studyTarget" type="number" min="0" step="0.25" value="4" />
-      <small>Enter hours (e.g., 3.5)</small>
-    </div>
-
-    <div>
-      <label for="breakLen">Break after (hours)</label>
-      <input id="breakLen" name="breakLen" type="number" step="0.25" value="0.5" />
-      <small>Default: 0.5 (30 minutes)</small>
-    </div>
-
-    <div>
-      <label for="wakeTime">Wake time</label>
-      <input id="wakeTime" name="wakeTime" type="time" />
-
-      <label for="sleepTime" style="margin-left:8px">Sleep time</label>
-      <input id="sleepTime" name="sleepTime" type="time" />
-    </div>
-
-    <div>
-      <label for="schoolToggle">School today (optional)</label>
-      <input id="schoolToggle" name="schoolToggle" type="checkbox" />
-      <label for="schoolFrom">From</label>
-      <input id="schoolFrom" name="schoolFrom" type="time" />
-      <label for="schoolTo">To</label>
-      <input id="schoolTo" name="schoolTo" type="time" />
-    </div>
-  </div>
-
-  <hr/>
-
-  <!-- WEEKLY SUBJECTS (Mon - Sun) -->
-  <div id="weekly-subjects" aria-label="Weekly subjects">
-    <h3>Saved Daily Subjects — Mon to Sun</h3>
-    <p class="muted">Choose the main subjects you study on each day. This is used for quick suggestions and auto-scheduling.</p>
-
-    <div class="week-grid" role="group" aria-label="Week days">
-      <!-- Day template — repeat for all days -->
-      <article class="day" data-day="monday" aria-labelledby="monday-label">
-        <h4 id="monday-label">Monday</h4>
-        <label>Subjects (comma-separated)</label>
-        <input data-day-subjects="monday" placeholder="e.g., Maths, Chemistry, Hindi" />
-
-        <label>Primary daily task (short)</label>
-        <input data-day-primary="monday" placeholder="e.g., Maths - 15 RD Sharma Qs" />
-
-        <label>Auto-suggest topic (optional)</label>
-        <input data-day-suggest="monday" placeholder="e.g., Chapter: Algebra — Polynomials" />
-      </article>
-
-      <article class="day" data-day="tuesday" aria-labelledby="tuesday-label">
-        <h4 id="tuesday-label">Tuesday</h4>
-        <input data-day-subjects="tuesday" placeholder="e.g., SST, English" />
-        <input data-day-primary="tuesday" placeholder="e.g., SST - Complete chapter & practice" />
-        <input data-day-suggest="tuesday" placeholder="e.g., Topic: Rivers / Map practice" />
-      </article>
-
-      <article class="day" data-day="wednesday" aria-labelledby="wednesday-label">
-        <h4 id="wednesday-label">Wednesday</h4>
-        <input data-day-subjects="wednesday" placeholder="e.g., Maths, Science" />
-        <input data-day-primary="wednesday" placeholder="e.g., Maths - 15 RD Questions" />
-        <input data-day-suggest="wednesday" placeholder="e.g., Topic: Geometry practice" />
-      </article>
-
-      <article class="day" data-day="thursday" aria-labelledby="thursday-label">
-        <h4 id="thursday-label">Thursday</h4>
-        <input data-day-subjects="thursday" placeholder="e.g., Hindi, Chemistry" />
-        <input data-day-primary="thursday" placeholder="e.g., Chemistry - 4 pages notes" />
-        <input data-day-suggest="thursday" placeholder="e.g., Topic: Metals & Non-metals" />
-      </article>
-
-      <article class="day" data-day="friday" aria-labelledby="friday-label">
-        <h4 id="friday-label">Friday</h4>
-        <input data-day-subjects="friday" placeholder="e.g., Maths, SST" />
-        <input data-day-primary="friday" placeholder="e.g., Maths - 15 RD Questions" />
-        <input data-day-suggest="friday" placeholder="e.g., Topic: Algebra revision" />
-      </article>
-
-      <article class="day" data-day="saturday" aria-labelledby="saturday-label">
-        <h4 id="saturday-label">Saturday</h4>
-        <input data-day-subjects="saturday" placeholder="e.g., Content creation, Practice" />
-        <input data-day-primary="saturday" placeholder="e.g., Practice tests / extra" />
-        <input data-day-suggest="saturday" placeholder="e.g., Topic: Full mock test" />
-      </article>
-
-      <article class="day" data-day="sunday" aria-labelledby="sunday-label">
-        <h4 id="sunday-label">Sunday</h4>
-        <input data-day-subjects="sunday" placeholder="e.g., Revision, English" />
-        <input data-day-primary="sunday" placeholder="e.g., Revision of weak topics" />
-        <input data-day-suggest="sunday" placeholder="e.g., Topic: Revision list" />
-      </article>
-    </div>
-  </div>
-
-  <hr/>
-
-  <!-- DAILY TASK TEMPLATE (for future JS to clone) -->
-  <template id="task-row-template">
+  <!-- TEMPLATE: task row (for JS cloning later) -->
+  <template id="taskRowTemplate">
     <div class="task-row" role="group">
       <label>Subject</label>
       <select class="task-subject">
+        <option value="">Select subject</option>
         <option value="maths">Maths</option>
         <option value="science">Science</option>
         <option value="sst">SST</option>
@@ -158,455 +284,17 @@
         <option value="other">Other</option>
       </select>
 
-      <label>Task description</label>
-      <input class="task-desc" placeholder="e.g., Chapter name, pages or Qs" />
-
-      <label>Type</label>
-      <select class="task-type">
-        <option value="chapter">Complete chapter</option>
-        <option value="pages">Pages</option>
-        <option value="questions">Questions practice</option>
-      </select>
+      <label>Task</label>
+      <input class="task-desc" type="text" placeholder="e.g., RD Sharma — 15 Qs" />
 
       <label>Target</label>
-      <input class="task-target" placeholder="e.g., 4 pages / 15 Qs" />
+      <input class="task-target" type="text" placeholder="e.g., 15 Qs / 4 pages / 1 chapter" />
+
+      <label>Est hrs</label>
+      <input class="task-hours" type="number" step="0.25" min="0" />
+
+      <button type="button" class="remove-task">Remove</button>
     </div>
   </template>
-
-  <!-- DAILY PLAN AREA -->
-  <section id="today-plan" aria-labelledby="today-plan-title">
-    <h3 id="today-plan-title">Today's Plan (preview)</h3>
-
-    <div id="plan-summary" aria-live="polite">
-      <!-- Future JS will populate this with computed daily schedule: wake/sleep, school, breaks, total study hours -->
-      <p class="muted">Preview will show scheduled sessions, total study hours, breaks count, and suggested next topic.</p>
-
-      <dl>
-        <dt>Scheduled study hours (today)</dt>
-        <dd><output id="scheduledHours">—</output> hrs</dd>
-
-        <dt>Previous day study hours</dt>
-        <dd><output id="previousDayHours">—</output> hrs</dd>
-
-        <dt>Last week average (daily)</dt>
-        <dd><output id="lastWeekAvg">—</output> hrs</dd>
-      </dl>
-    </div>
-<!-- ===== Study Planner Dashboard HTML (Paste into your main page) ===== -->
-<section id="study-dashboard" aria-labelledby="study-dashboard-title">
-  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-    <div>
-      <h2 id="study-dashboard-title">Study Planner Dashboard</h2>
-      <p id="mission-display" class="muted">Mission: <strong id="mission-title">Mission 99 : 75 HARD DAYS</strong></p>
-    </div>
-
-    <div style="text-align:right">
-      <div id="daily-quote-small" aria-live="polite">Quote: <span id="quote-today">—</span></div>
-      <div style="margin-top:6px;font-size:13px;color:var(--muted)">Last saved: <span id="last-saved">—</span></div>
-    </div>
-  </header>
-
-  <hr/>
-
-  <!-- ===== Input / Add Entry Panel ===== -->
-  <section id="entry-input-panel" aria-labelledby="entry-panel-title">
-    <h3 id="entry-panel-title">Add / Edit Daily Entry</h3>
-
-    <form id="planner-form" autocomplete="off" novalidate>
-      <div class="row">
-        <label for="entryDate">Date</label>
-        <input id="entryDate" type="date" name="date" />
-      </div>
-
-      <div class="row">
-        <label for="wakeTime">Wake time</label>
-        <input id="wakeTime" type="time" name="wake" />
-
-        <label for="sleepTime" style="margin-left:12px">Sleep time</label>
-        <input id="sleepTime" type="time" name="sleep" />
-      </div>
-
-      <div class="row">
-        <label for="schoolToggle">School today</label>
-        <input id="schoolToggle" type="checkbox" name="schoolEnabled" />
-        <label for="schoolFrom" style="margin-left:8px">From</label>
-        <input id="schoolFrom" type="time" name="schoolFrom" />
-        <label for="schoolTo" style="margin-left:8px">To</label>
-        <input id="schoolTo" type="time" name="schoolTo" />
-      </div>
-
-      <div class="row">
-        <label for="studyTarget">Planned study hours (today)</label>
-        <input id="studyTarget" type="number" name="studyTarget" min="0" step="0.25" placeholder="e.g., 4" />
-      </div>
-
-      <!-- Repeatable task rows area (JS will clone a template into #tasksArea) -->
-      <div id="tasksAreaWrapper">
-        <label>Daily Tasks (add rows as needed)</label>
-        <div id="tasksArea" aria-live="polite">
-          <!-- JS will insert .task-row elements here -->
-        </div>
-        <div style="margin-top:8px">
-          <button type="button" id="addTaskRowBtn">+ Add task row</button>
-        </div>
-      </div>
-
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button type="button" id="saveEntryBtn">Save Entry</button>
-        <button type="button" id="clearEntryBtn" class="ghost">Clear Form</button>
-      </div>
-    </form>
-
-    <!-- Hidden template for a task row (JS should clone this) -->
-    <template id="taskRowTemplate">
-      <div class="task-row" role="group">
-        <select class="task-subject" aria-label="Subject">
-          <option value="">Select subject</option>
-          <option value="maths">Maths</option>
-          <option value="science">Science</option>
-          <option value="sst">SST</option>
-          <option value="hindi">Hindi</option>
-          <option value="english">English</option>
-          <option value="other">Other</option>
-        </select>
-
-        <input class="task-desc" type="text" placeholder="Task description (chapter / pages / qns)" />
-
-        <input class="task-target" type="text" placeholder="Target (e.g., 15 Qs / 4 pages)" />
-
-        <input class="task-duration" type="number" step="0.25" min="0" placeholder="hrs (opt)" />
-
-        <button type="button" class="remove-task">Remove</button>
-      </div>
-    </template>
-  </section>
-
-  <hr/>
-
-  <!-- ===== Clean Dashboard: Entries Display ===== -->
-  <section id="entries-dashboard" aria-labelledby="entries-title">
-    <h3 id="entries-title">Saved Entries</h3>
-    <p class="muted">All saved daily entries appear here. Click a card to load into the form for editing.</p>
-
-    <!-- Controls -->
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
-      <label for="filterRange">View</label>
-      <select id="filterRange" name="filterRange">
-        <option value="all">All</option>
-        <option value="today">Today</option>
-        <option value="week">This Week</option>
-        <option value="month">This Month</option>
-      </select>
-
-      <label for="filterSubject" style="margin-left:8px">Subject</label>
-      <select id="filterSubject" name="filterSubject">
-        <option value="all">All</option>
-        <option value="maths">Maths</option>
-        <option value="science">Science</option>
-        <option value="sst">SST</option>
-        <option value="hindi">Hindi</option>
-        <option value="english">English</option>
-      </select>
-
-      <button type="button" id="refreshDashboardBtn">Refresh</button>
-      <button type="button" id="exportAllBtn">Export All</button>
-    </div>
-
-    <!-- Cards container (JS will populate entries here) -->
-    <div id="entriesList" aria-live="polite">
-      <!-- Example card structure (JS will generate similar cards) -->
-      <!--
-      <article class="entry-card" data-date="2025-10-29">
-        <header>
-          <strong class="entry-date">2025-10-29</strong>
-          <span class="entry-summary">Study 4.5 hrs • 3 tasks • 1 break</span>
-        </header>
-        <div class="entry-meta">
-          <div>Wake: 05:00 • Sleep: 22:30</div>
-          <div>School: 07:00-14:00</div>
-        </div>
-        <ul class="entry-tasks">
-          <li>Maths — 15 RD questions • 1.5 hr</li>
-          <li>Science — 4 pages • 0.8 hr</li>
-        </ul>
-        <footer>
-          <button class="load-entry">Load</button>
-          <button class="delete-entry">Delete</button>
-        </footer>
-      </article>
-      -->
-    </div>
-  </section>
-
-  <hr/>
-
-  <!-- ===== Generate Plan CTA + Preview ===== -->
-  <section id="generate-plan-section" aria-labelledby="generate-title">
-    <h3 id="generate-title">Generate Plan</h3>
-    <p class="muted">Based on saved entries, weekly patterns and yesterday's data — generate a focused plan for the selected date.</p>
-
-    <div style="display:flex;gap:8px;align-items:center">
-      <label for="generateForDate">Generate for</label>
-      <input id="generateForDate" type="date" value="" />
-      <button type="button" id="generatePlanBtn">Generate Plan</button>
-      <button type="button" id="applyGeneratedBtn" class="ghost">Apply to Form</button>
-    </div>
-
-    <div id="generatedPlanPreview" aria-live="polite" style="margin-top:12px">
-      <!-- JS will show the generated plan here -->
-      <p class="muted">No plan generated yet.</p>
-    </div>
-  </section>
-
-  <hr/>
-
-  <!-- ===== Summary & Quick Stats ===== -->
-  <section id="dashboard-summary" aria-labelledby="summary-title">
-    <h3 id="summary-title">Quick Summary</h3>
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-      <div class="stat">
-        <div class="stat-value" id="stat-week-hours">—</div>
-        <div class="stat-label">This week avg (hrs/day)</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-value" id="stat-prev-hours">—</div>
-        <div class="stat-label">Yesterday (hrs)</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-value" id="stat-mfreq">—</div>
-        <div class="stat-label">Most studied subject</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-value" id="stat-streak">—</div>
-        <div class="stat-label">Current streak (days)</div>
-      </div>
-    </div>
-  </section>
-
-  <footer style="margin-top:12px;font-size:13px" aria-hidden="true">
-    <small class="muted">Planner UI by <strong>Swayam Mishra</strong>. No data stored until 'Save Entry' is used.</small>
-  </footer>
-</section>
-    <div id="daily-task-list" aria-label="Daily tasks">
-      <!-- JS will inject task rows here (based on selected subjects and saved daily subjects) -->
-    </div>
-  </section>
-
-  <hr/>
-
-  <!-- STORAGE / EXPORT / IMPORT -->
-  <section id="planner-storage" aria-label="Planner storage controls">
-    <button id="savePlannerBtn" type="button">Save Plan (Local)</button>
-    <button id="loadPlannerBtn" type="button">Load Plan</button>
-    <button id="clearPlannerBtn" type="button">Clear Saved Plan</button>
-
-    <button id="exportPlannerBtn" type="button">Export JSON</button>
-    <label for="importPlannerFile" style="display:inline-block; margin-left:8px;">
-      Import JSON
-      <input id="importPlannerFile" type="file" accept="application/json" />
-    </label>
-
-    <div id="savedPlansList" aria-live="polite" style="margin-top:8px;">
-      <!-- JS will render a list of saved plans here -->
-    </div>
-  </section>
-
-  <hr/>
-
-  <!-- QUOTES (20 saved quotes slot) -->
-  <section id="daily-quote" aria-labelledby="quote-title">
-    <h3 id="quote-title">Daily Motivation</h3>
-    <div id="quoteDisplay" role="note" aria-live="polite">
-      <p class="muted">Your daily quote will appear here.</p>
-    </div>
-
-    <details>
-      <summary>Manage stored quotes (20 slots)</summary>
-      <ol id="quoteList" style="margin-top:8px;">
-        <!-- Pre-create 20 inputs for quotes; JS will use these to save quotes -->
-        <li><input class="quote-input" data-quote-index="0" placeholder="Quote 1" /></li>
-        <li><input class="quote-input" data-quote-index="1" placeholder="Quote 2" /></li>
-        <li><input class="quote-input" data-quote-index="2" placeholder="Quote 3" /></li>
-        <li><input class="quote-input" data-quote-index="3" placeholder="Quote 4" /></li>
-        <li><input class="quote-input" data-quote-index="4" placeholder="Quote 5" /></li>
-        <li><input class="quote-input" data-quote-index="5" placeholder="Quote 6" /></li>
-        <li><input class="quote-input" data-quote-index="6" placeholder="Quote 7" /></li>
-        <li><input class="quote-input" data-quote-index="7" placeholder="Quote 8" /></li>
-        <li><input class="quote-input" data-quote-index="8" placeholder="Quote 9" /></li>
-        <li><input class="quote-input" data-quote-index="9" placeholder="Quote 10" /></li>
-        <li><input class="quote-input" data-quote-index="10" placeholder="Quote 11" /></li>
-        <li><input class="quote-input" data-quote-index="11" placeholder="Quote 12" /></li>
-        <li><input class="quote-input" data-quote-index="12" placeholder="Quote 13" /></li>
-        <li><input class="quote-input" data-quote-index="13" placeholder="Quote 14" /></li>
-        <li><input class="quote-input" data-quote-index="14" placeholder="Quote 15" /></li>
-        <li><input class="quote-input" data-quote-index="15" placeholder="Quote 16" /></li>
-        <li><input class="quote-input" data-quote-index="16" placeholder="Quote 17" /></li>
-        <li><input class="quote-input" data-quote-index="17" placeholder="Quote 18" /></li>
-        <li><input class="quote-input" data-quote-index="18" placeholder="Quote 19" /></li>
-        <li><input class="quote-input" data-quote-index="19" placeholder="Quote 20" /></li>
-      </ol>
-
-      <div style="margin-top:8px;">
-        <button id="saveQuotesBtn" type="button">Save Quotes</button>
-        <button id="randomQuoteBtn" type="button">Show Today's Quote</button>
-      </div>
-    </details>
-  </section>
-
-  <hr/>
-
-  <!-- SUMMARY & STATS -->
-  <section id="planner-stats" aria-label="Planner summary">
-    <h3>Summary & Stats</h3>
-    <ul>
-      <li>Total scheduled study hours (today): <output id="statTodayTotal">—</output> hrs</li>
-      <li>Breaks planned: <output id="statBreaks">—</output></li>
-      <li>Previous day hours: <output id="statPrevDay">—</output> hrs</li>
-      <li>Last 7-day average: <output id="stat7DayAvg">—</output> hrs/day</li>
-    </ul>
-  </section>
-
-  <footer aria-label="Planner footer" style="margin-top:1rem;">
-    <small class="muted">Planner by <strong>Swayam Mishra</strong>. Data fields are ready to be hooked with JavaScript for storage, suggestions, and scheduling logic.</small>
-  </footer>
-</section>
-<!-- ===== End Study Planner ===== -->
-  <!-- Main content -->
-  <main class="container" id="main" role="main">
-    <!-- Hero / Quick summary -->
-    <section class="hero" id="hero">
-      <div class="hero-left">
-        <h1>Daily Planner — Simple, Focused</h1>
-        <p class="lead">A clean place to add and manage your daily tasks. No AI, just smart memory based on your past entries. Designed for fast use — add a task and get back to life.</p>
-        <div class="meta">
-          <span class="meta-item">Theme: Dark Charcoal • Gold accents</span>
-          <span class="meta-item">Owner: <strong>Swayam Mishra</strong></span>
-        </div>
-      </div>
-
-      <aside class="hero-right" aria-labelledby="quick-add-label">
-        <h2 id="quick-add-label">Quick Add</h2>
-        <!-- Task input area (JS will hook onto ids) -->
-        <form id="taskForm" class="task-form" action="#" novalidate>
-          <label for="taskInput" class="sr-only">New task</label>
-          <input id="taskInput" name="task" type="text" placeholder="e.g., Cricket practice at 5 PM" autocomplete="off" required/>
-
-          <div class="form-row">
-            <select id="taskCategory" name="category" aria-label="Category">
-              <option value="general">General</option>
-              <option value="study">Study</option>
-              <option value="fitness">Fitness</option>
-              <option value="content">Content</option>
-              <option value="spiritual">Spiritual</option>
-            </select>
-
-            <input id="taskTime" name="time" type="time" aria-label="Preferred time" />
-          </div>
-
-          <div class="form-row">
-            <button id="addBtn" class="btn primary" type="submit">Add Task</button>
-            <button id="suggestBtn" class="btn ghost" type="button">Suggest</button>
-          </div>
-        </form>
-
-        <div id="quickNote" class="muted small">Tip: Press Enter to add quickly.</div>
-      </aside>
-    </section>
-
-    <!-- Suggestions -->
-    <section id="suggestions" class="panel">
-      <header class="panel-head">
-        <h3>Suggestions</h3>
-        <p class="muted">Smart suggestions based on your recent tasks (local memory only).</p>
-      </header>
-      <div id="suggestList" class="suggest-list" aria-live="polite">
-        <!-- JS will populate suggestion buttons here -->
-      </div>
-    </section>
-
-    <!-- Today's tasks -->
-    <section id="today" class="panel">
-      <header class="panel-head">
-        <h3>Today's Tasks</h3>
-        <p class="muted">Add, edit, reorder, or mark done. Use categories to filter.</p>
-
-        <div class="panel-actions">
-          <label for="filterCategory" class="sr-only">Filter category</label>
-          <select id="filterCategory">
-            <option value="all">All categories</option>
-            <option value="study">Study</option>
-            <option value="fitness">Fitness</option>
-            <option value="content">Content</option>
-            <option value="spiritual">Spiritual</option>
-          </select>
-
-          <button id="clearCompleted" class="btn ghost">Clear Completed</button>
-        </div>
-      </header>
-
-      <ul id="taskList" class="task-list" aria-live="polite">
-        <!-- JS will render tasks here as <li data-id="..."> -->
-      </ul>
-
-      <div id="emptyState" class="empty muted">No tasks for today. Add something productive (or dramatic).</div>
-    </section>
-
-    <!-- History & backup -->
-    <section id="history" class="panel">
-      <header class="panel-head">
-        <h3>History & Backup</h3>
-        <p class="muted">Export or import your task history as JSON.</p>
-      </header>
-
-      <div class="history-actions">
-        <button id="exportBtn" class="btn">Export JSON</button>
-        <label for="importFile" class="btn file-btn">Import JSON
-          <input id="importFile" type="file" accept="application/json" style="display:none" />
-        </label>
-      </div>
-
-      <div id="streaks" class="streaks muted">
-        <!-- Small JS-generated streaks / summary -->
-      </div>
-    </section>
-<!-- ===== Task Manager Section (HTML Only) ===== -->
-<section id="task-manager">
-  <h2>Task Manager</h2>
-  
-  <div>
-    <input type="text" id="taskInput" placeholder="Enter a new task...">
-    <button id="addTaskBtn">Add</button>
-  </div>
-
-  <ul id="taskList"></ul>
-
-  <p>Created by <strong>Swayam Mishra</strong></p>
-</section>
-    <!-- About / footer area inside main -->
-    <section id="about" class="panel">
-      <h3>About</h3>
-      <p class="muted">Task Manager — a minimal daily planner constructed for focus and habit memory. No accounts. Data stored locally in your browser unless you export it.</p>
-      <p class="muted">Built for <strong>Swayam Mishra</strong>. Designed to be extended into a full habit assistant later.</p>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> Task Manager</div>
-      <div class="muted">Founded by <strong>Swayam Mishra</strong></div>
-    </div>
-  </footer>
-
-  <!-- Small accessibility helpers and initial inline script (safe & minimal) -->
-  <script>
-    // Basic runtime fallbacks so page shows current year and progressive enhancement works.
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // Prevent form submission navigation — actual behavior is handled in script.js
-    document.getElementById('taskForm')?.addEventListener('submit', e => e.preventDefault());
-  </script>
 </body>
 </html>
