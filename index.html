@@ -192,7 +192,204 @@
         <dd><output id="lastWeekAvg">—</output> hrs</dd>
       </dl>
     </div>
+<!-- ===== Study Planner Dashboard HTML (Paste into your main page) ===== -->
+<section id="study-dashboard" aria-labelledby="study-dashboard-title">
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div>
+      <h2 id="study-dashboard-title">Study Planner Dashboard</h2>
+      <p id="mission-display" class="muted">Mission: <strong id="mission-title">Mission 99 : 75 HARD DAYS</strong></p>
+    </div>
 
+    <div style="text-align:right">
+      <div id="daily-quote-small" aria-live="polite">Quote: <span id="quote-today">—</span></div>
+      <div style="margin-top:6px;font-size:13px;color:var(--muted)">Last saved: <span id="last-saved">—</span></div>
+    </div>
+  </header>
+
+  <hr/>
+
+  <!-- ===== Input / Add Entry Panel ===== -->
+  <section id="entry-input-panel" aria-labelledby="entry-panel-title">
+    <h3 id="entry-panel-title">Add / Edit Daily Entry</h3>
+
+    <form id="planner-form" autocomplete="off" novalidate>
+      <div class="row">
+        <label for="entryDate">Date</label>
+        <input id="entryDate" type="date" name="date" />
+      </div>
+
+      <div class="row">
+        <label for="wakeTime">Wake time</label>
+        <input id="wakeTime" type="time" name="wake" />
+
+        <label for="sleepTime" style="margin-left:12px">Sleep time</label>
+        <input id="sleepTime" type="time" name="sleep" />
+      </div>
+
+      <div class="row">
+        <label for="schoolToggle">School today</label>
+        <input id="schoolToggle" type="checkbox" name="schoolEnabled" />
+        <label for="schoolFrom" style="margin-left:8px">From</label>
+        <input id="schoolFrom" type="time" name="schoolFrom" />
+        <label for="schoolTo" style="margin-left:8px">To</label>
+        <input id="schoolTo" type="time" name="schoolTo" />
+      </div>
+
+      <div class="row">
+        <label for="studyTarget">Planned study hours (today)</label>
+        <input id="studyTarget" type="number" name="studyTarget" min="0" step="0.25" placeholder="e.g., 4" />
+      </div>
+
+      <!-- Repeatable task rows area (JS will clone a template into #tasksArea) -->
+      <div id="tasksAreaWrapper">
+        <label>Daily Tasks (add rows as needed)</label>
+        <div id="tasksArea" aria-live="polite">
+          <!-- JS will insert .task-row elements here -->
+        </div>
+        <div style="margin-top:8px">
+          <button type="button" id="addTaskRowBtn">+ Add task row</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button type="button" id="saveEntryBtn">Save Entry</button>
+        <button type="button" id="clearEntryBtn" class="ghost">Clear Form</button>
+      </div>
+    </form>
+
+    <!-- Hidden template for a task row (JS should clone this) -->
+    <template id="taskRowTemplate">
+      <div class="task-row" role="group">
+        <select class="task-subject" aria-label="Subject">
+          <option value="">Select subject</option>
+          <option value="maths">Maths</option>
+          <option value="science">Science</option>
+          <option value="sst">SST</option>
+          <option value="hindi">Hindi</option>
+          <option value="english">English</option>
+          <option value="other">Other</option>
+        </select>
+
+        <input class="task-desc" type="text" placeholder="Task description (chapter / pages / qns)" />
+
+        <input class="task-target" type="text" placeholder="Target (e.g., 15 Qs / 4 pages)" />
+
+        <input class="task-duration" type="number" step="0.25" min="0" placeholder="hrs (opt)" />
+
+        <button type="button" class="remove-task">Remove</button>
+      </div>
+    </template>
+  </section>
+
+  <hr/>
+
+  <!-- ===== Clean Dashboard: Entries Display ===== -->
+  <section id="entries-dashboard" aria-labelledby="entries-title">
+    <h3 id="entries-title">Saved Entries</h3>
+    <p class="muted">All saved daily entries appear here. Click a card to load into the form for editing.</p>
+
+    <!-- Controls -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <label for="filterRange">View</label>
+      <select id="filterRange" name="filterRange">
+        <option value="all">All</option>
+        <option value="today">Today</option>
+        <option value="week">This Week</option>
+        <option value="month">This Month</option>
+      </select>
+
+      <label for="filterSubject" style="margin-left:8px">Subject</label>
+      <select id="filterSubject" name="filterSubject">
+        <option value="all">All</option>
+        <option value="maths">Maths</option>
+        <option value="science">Science</option>
+        <option value="sst">SST</option>
+        <option value="hindi">Hindi</option>
+        <option value="english">English</option>
+      </select>
+
+      <button type="button" id="refreshDashboardBtn">Refresh</button>
+      <button type="button" id="exportAllBtn">Export All</button>
+    </div>
+
+    <!-- Cards container (JS will populate entries here) -->
+    <div id="entriesList" aria-live="polite">
+      <!-- Example card structure (JS will generate similar cards) -->
+      <!--
+      <article class="entry-card" data-date="2025-10-29">
+        <header>
+          <strong class="entry-date">2025-10-29</strong>
+          <span class="entry-summary">Study 4.5 hrs • 3 tasks • 1 break</span>
+        </header>
+        <div class="entry-meta">
+          <div>Wake: 05:00 • Sleep: 22:30</div>
+          <div>School: 07:00-14:00</div>
+        </div>
+        <ul class="entry-tasks">
+          <li>Maths — 15 RD questions • 1.5 hr</li>
+          <li>Science — 4 pages • 0.8 hr</li>
+        </ul>
+        <footer>
+          <button class="load-entry">Load</button>
+          <button class="delete-entry">Delete</button>
+        </footer>
+      </article>
+      -->
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ===== Generate Plan CTA + Preview ===== -->
+  <section id="generate-plan-section" aria-labelledby="generate-title">
+    <h3 id="generate-title">Generate Plan</h3>
+    <p class="muted">Based on saved entries, weekly patterns and yesterday's data — generate a focused plan for the selected date.</p>
+
+    <div style="display:flex;gap:8px;align-items:center">
+      <label for="generateForDate">Generate for</label>
+      <input id="generateForDate" type="date" value="" />
+      <button type="button" id="generatePlanBtn">Generate Plan</button>
+      <button type="button" id="applyGeneratedBtn" class="ghost">Apply to Form</button>
+    </div>
+
+    <div id="generatedPlanPreview" aria-live="polite" style="margin-top:12px">
+      <!-- JS will show the generated plan here -->
+      <p class="muted">No plan generated yet.</p>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ===== Summary & Quick Stats ===== -->
+  <section id="dashboard-summary" aria-labelledby="summary-title">
+    <h3 id="summary-title">Quick Summary</h3>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <div class="stat">
+        <div class="stat-value" id="stat-week-hours">—</div>
+        <div class="stat-label">This week avg (hrs/day)</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value" id="stat-prev-hours">—</div>
+        <div class="stat-label">Yesterday (hrs)</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value" id="stat-mfreq">—</div>
+        <div class="stat-label">Most studied subject</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-value" id="stat-streak">—</div>
+        <div class="stat-label">Current streak (days)</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:12px;font-size:13px" aria-hidden="true">
+    <small class="muted">Planner UI by <strong>Swayam Mishra</strong>. No data stored until 'Save Entry' is used.</small>
+  </footer>
+</section>
     <div id="daily-task-list" aria-label="Daily tasks">
       <!-- JS will inject task rows here (based on selected subjects and saved daily subjects) -->
     </div>
