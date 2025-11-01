@@ -3,300 +3,237 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Study Planner Dashboard — Mission 99</title>
-  <meta name="description" content="Study Planner Dashboard — Mission 99 by Swayam Mishra. Plan daily study, auto-generate schedules, track history and performance." />
-  
- <link rel="stylesheet" href="style.css">
-  
+  <title>PocketTrip — Product Brief</title>
+  <meta name="description" content="PocketTrip — concept, UI/UX, architecture, AI flow and expansion ideas (HTML-only brief)." />
+  <!--
+    NOTE: This is HTML-only deliverable.
+    Styles and scripts are intentionally omitted so you can attach your preferred CSS/JS later.
+    The structure uses semantic sections and IDs for easy styling and scripting.
+  -->
 </head>
 <body>
-  <!-- ===== Header / Mission Bar ===== -->
-  <header id="app-header" role="banner" aria-labelledby="app-title" style="padding:1rem 1.25rem;">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <!-- Minimal inline logo SVG (styling later) -->
-        <svg width="56" height="56" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-          <rect x="0" y="0" width="64" height="64" rx="10" fill="#000000"></rect>
-          <text x="50%" y="58%" font-family="sans-serif" font-size="20" text-anchor="middle" fill="#ffffff">TM</text>
-        </svg>
-
-        <div>
-          <h1 id="app-title" style="margin:0;">Study Planner Dashboard</h1>
-          <div style="font-size:0.95rem;color:#444;" id="mission-strip">
-            Mission: <strong id="mission-title">Mission 99 : 75 HARD DAYS</strong>
-          </div>
-        </div>
-      </div>
-
-      <div style="text-align:right;">
-        <div id="quoteDisplay" aria-live="polite" style="font-style:italic;">“One small comeback can change the day.”</div>
-        <div style="font-size:0.85rem;color:#666;margin-top:6px;">Founder: <strong>Swayam Mishra</strong></div>
-      </div>
-    </div>
+  <header id="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">PocketTrip — Plan Smart. Travel Soulfully.</h1>
+    <p id="hero-sub">AI + Wikipedia + Travel Planner — deep itineraries, local stories, and real packing wisdom for curious travelers.</p>
+    <nav id="top-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#concept">Concept</a></li>
+        <li><a href="#design">App Design</a></li>
+        <li><a href="#structure">Page Structure</a></li>
+        <li><a href="#backend">Backend</a></li>
+        <li><a href="#ai">AI Logic</a></li>
+        <li><a href="#future">Future</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="main" role="main" style="padding:1rem 1.25rem;">
-    <!-- ===== Two-column layout (editor left, dashboard right) ===== -->
-    <div id="layout" style="display:flex;gap:1.25rem;flex-wrap:wrap;">
-      <!-- ===== Editor / Entry Form (left) ===== -->
-      <section id="planner-editor" aria-labelledby="editor-heading" style="flex:1 1 520px;min-width:300px;">
-        <h2 id="editor-heading">Add / Edit Daily Entry</h2>
+  <main id="content">
+    <!-- 1. Concept Recap -->
+    <section id="concept" aria-labelledby="concept-title">
+      <h2 id="concept-title">1. Concept Recap</h2>
+      <p><strong>PocketTrip</strong> = <em>AI + Wikipedia + Travel Planner</em>. It helps budget and curious travelers discover destinations, local stories, and build a useful itinerary (complete with packing tips and safety notes).</p>
 
-        <form id="planner-form" autocomplete="off" novalidate>
-          <fieldset>
-            <legend class="sr-only">Basic day settings</legend>
-
-            <div>
-              <label for="entryDate">Date</label>
-              <input id="entryDate" name="date" type="date" />
-            </div>
-
-            <div>
-              <label for="wakeTime">Wake time</label>
-              <input id="wakeTime" name="wakeTime" type="time" />
-            </div>
-
-            <div>
-              <label for="sleepTime">Sleep time</label>
-              <input id="sleepTime" name="sleepTime" type="time" />
-            </div>
-
-            <div>
-              <label for="studyTarget">Planned study hours (today)</label>
-              <input id="studyTarget" name="studyTarget" type="number" min="0" step="0.25" placeholder="e.g., 4" />
-            </div>
-
-            <div>
-              <label for="breakInterval">Break interval (minutes)</label>
-              <select id="breakInterval" name="breakInterval">
-                <option value="25">25</option>
-                <option value="30" selected>30</option>
-                <option value="45">45</option>
-                <option value="60">60</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="schoolToggle">School today</label>
-              <input id="schoolToggle" name="schoolToggle" type="checkbox" />
-              <label for="schoolFrom">From</label>
-              <input id="schoolFrom" name="schoolFrom" type="time" />
-              <label for="schoolTo">To</label>
-              <input id="schoolTo" name="schoolTo" type="time" />
-            </div>
-
-            <div>
-              <label for="mealBreakfast">Breakfast time</label>
-              <input id="mealBreakfast" name="mealBreakfast" type="time" />
-            </div>
-            <div>
-              <label for="mealLunch">Lunch time</label>
-              <input id="mealLunch" name="mealLunch" type="time" />
-            </div>
-            <div>
-              <label for="mealDinner">Dinner time</label>
-              <input id="mealDinner" name="mealDinner" type="time" />
-            </div>
-
-          </fieldset>
-
-          <hr/>
-
-          <!-- Repeatable Tasks area -->
-          <fieldset>
-            <legend>Tasks for the day</legend>
-            <p class="muted">Add one task per row. Give a short target (e.g., "15 RD Questions", "4 pages").</p>
-
-            <div id="tasksArea" aria-live="polite">
-              <!-- Example static task row - JS will replicate/remove dynamically later -->
-              <div class="task-row" data-index="0">
-                <label>Subject</label>
-                <select class="task-subject" name="subject-0">
-                  <option value="maths">Maths</option>
-                  <option value="science">Science</option>
-                  <option value="sst">SST</option>
-                  <option value="hindi">Hindi</option>
-                  <option value="english">English</option>
-                  <option value="other">Other</option>
-                </select>
-
-                <label>Task</label>
-                <input class="task-desc" name="desc-0" type="text" placeholder="e.g., RD Sharma — 15 Qs" />
-
-                <label>Target / estimate</label>
-                <input class="task-target" name="target-0" type="text" placeholder="e.g., 15 Qs / 4 pages / 1 chapter" />
-
-                <label>Est. hrs (opt)</label>
-                <input class="task-hours" name="hours-0" type="number" step="0.25" min="0" placeholder="e.g., 1" />
-
-                <button type="button" class="remove-task" aria-label="Remove this task">Remove</button>
-              </div>
-            </div>
-
-            <div style="margin-top:0.75rem;">
-              <button type="button" id="addTaskRowBtn">+ Add task row</button>
-            </div>
-          </fieldset>
-
-          <hr/>
-
-          <!-- Uploads / Resources -->
-          <fieldset>
-            <legend>Resources (notes / files)</legend>
-            <p class="muted">Attach study notes or links for the day (saved locally).</p>
-            <input id="resourceUpload" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" />
-            <div id="resourcesList" aria-live="polite">
-              <!-- JS will list uploaded resources here -->
-            </div>
-          </fieldset>
-
-          <div style="margin-top:0.75rem;">
-            <button type="button" id="saveEntryBtn">Save Entry</button>
-            <button type="button" id="clearEntryBtn">Clear</button>
-            <label style="margin-left:8px;">
-              <input id="autoSaveToggle" type="checkbox" /> Auto-save drafts
-            </label>
-          </div>
-        </form>
-      </section>
-
-      <!-- ===== Dashboard / Entries (right) ===== -->
-      <aside id="planner-dashboard" aria-labelledby="dashboard-heading" style="flex:1 1 420px;min-width:300px;">
-        <h2 id="dashboard-heading">Saved Entries</h2>
-        <p class="muted">Cards below show your saved daily entries. Click a card to load it into the editor.</p>
-
-        <div id="controls" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.5rem 0;">
-          <select id="filterRange">
-            <option value="all">All</option>
-            <option value="today">Today</option>
-            <option value="week">This week</option>
-            <option value="month">This month</option>
-          </select>
-
-          <select id="filterSubject">
-            <option value="all">All subjects</option>
-            <option value="maths">Maths</option>
-            <option value="science">Science</option>
-            <option value="sst">SST</option>
-            <option value="hindi">Hindi</option>
-            <option value="english">English</option>
-          </select>
-
-          <button type="button" id="refreshDashboardBtn">Refresh</button>
-          <button type="button" id="exportAllBtn">Export All</button>
-        </div>
-
-        <div id="entriesList" aria-live="polite" style="display:flex;flex-direction:column;gap:0.75rem;">
-          <!-- Example static sample card — real cards generated by JS -->
-          <article class="entry-card" data-date="2025-10-29" aria-label="Entry for 2025-10-29">
-            <header>
-              <strong class="entry-date">2025-10-29</strong>
-              <div class="entry-summary">Planned 4.0 hrs • 3 tasks • Break every 30 min</div>
-            </header>
-            <div class="entry-meta">
-              <div>Wake: 05:00 • Sleep: 22:30</div>
-              <div>School: 07:00–14:00</div>
-            </div>
-            <ul class="entry-tasks">
-              <li>Maths — RD Sharma: 15 Qs • 1.5 hr</li>
-              <li>Science — Metals & Non-metals: 4 pages • 1.0 hr</li>
-              <li>English — Writing practice • 1.5 hr</li>
-            </ul>
-            <footer style="margin-top:6px;">
-              <button class="load-entry">Load</button>
-              <button class="delete-entry">Delete</button>
-            </footer>
-          </article>
-
-          <!-- More cards will be generated by the script -->
-        </div>
-
-        <!-- Quick stats panel -->
-        <div id="quick-stats" style="margin-top:1rem;">
-          <h3>Quick Summary</h3>
-          <div>
-            <div>Yesterday: <strong id="stat-prev-hours">—</strong> hrs</div>
-            <div>This week avg: <strong id="stat-week-hours">—</strong> hrs/day</div>
-            <div>Most studied: <strong id="stat-mfreq">—</strong></div>
-            <div>Streak: <strong id="stat-streak">—</strong> days</div>
-          </div>
-
-          <!-- Chart placeholder - will be drawn by JS/CSS later -->
-          <div id="chartPlaceholder" aria-hidden="true" style="margin-top:0.5rem;">
-            <svg id="progressChart" width="100%" height="80" viewBox="0 0 400 80" preserveAspectRatio="none" role="img" aria-hidden="true">
-              <rect width="100%" height="100%" fill="none"></rect>
-              <!-- JS will draw bars here -->
-            </svg>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <hr style="margin:1.25rem 0;" />
-
-    <!-- ===== Generate Plan Area ===== -->
-    <section id="generate-plan" aria-labelledby="generate-title">
-      <h2 id="generate-title">Generate Plan</h2>
-      <p class="muted">Generate a schedule for a date based on your saved entries, yesterday's hours, and weekly patterns.</p>
-
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
-        <label for="generateForDate">Generate for</label>
-        <input id="generateForDate" type="date" />
-        <button type="button" id="generatePlanBtn">Generate Plan</button>
-        <button type="button" id="applyGeneratedBtn">Apply to Form</button>
-        <button type="button" id="saveGeneratedBtn" class="ghost">Save Generated</button>
-      </div>
-
-      <div id="generatedPlanPreview" aria-live="polite" style="margin-top:0.75rem;">
-        <p class="muted">No plan generated yet. Generated plan preview will appear here with timeslots, breaks and task assignments.</p>
-      </div>
+      <ul>
+        <li><strong>Audience:</strong> Budget travelers, students, solo explorers.</li>
+        <li><strong>Core idea:</strong> Enter trip parameters → receive a story-driven itinerary, packing checklist, and local cultural insights.</li>
+        <li><strong>Tagline:</strong> <em>Plan Smart. Travel Soulfully.</em></li>
+      </ul>
     </section>
 
-    <hr style="margin:1.25rem 0;" />
+    <!-- 2. App Design (UI/UX + Color Palette) -->
+    <section id="design" aria-labelledby="design-title">
+      <h2 id="design-title">2. App Design — UI/UX + Color Palette</h2>
 
-    <!-- ===== Founder Message & Footer ===== -->
-    <section id="founder-note" aria-labelledby="founder-title" style="margin-top:0.5rem;">
-      <h3 id="founder-title">A short note</h3>
-      <p id="founder-message">
-        From the founder's desk — <strong>Swayam Mishra</strong>: &quot;Consistency over intensity. Plan well, follow the plan, and adjust honestly. You're building a habit, not a one-day miracle.&quot;
-      </p>
+      <h3>Color Palette</h3>
+      <p>Primary colors and usage guide (hex):</p>
+      <ul>
+        <li><strong>Primary</strong>: <code>#2B8CFF</code> — Sky Blue (buttons, primary accents)</li>
+        <li><strong>Secondary</strong>: <code>#FFD166</code> — Golden Sand (cards, small accents)</li>
+        <li><strong>Background</strong>: <code>#F7FAFC</code> — Off-white (page background)</li>
+        <li><strong>Text</strong>: <code>#1A202C</code> — Dark Charcoal</li>
+        <li><strong>Accent</strong>: <code>#06D6A0</code> — Mint Green (success, positive actions)</li>
+        <li><strong>Error</strong>: <code>#EF476F</code> — Coral Red (warnings)</li>
+      </ul>
+
+      <h3>Typography & Style</h3>
+      <ul>
+        <li><strong>Font:</strong> <em>Poppins</em> or <em>Inter</em>.</li>
+        <li><strong>Corner radius:</strong> 16px for cards and components.</li>
+        <li><strong>Card style:</strong> Soft drop shadow, subtle gradients (sky → mint on hero).</li>
+        <li><strong>Icons:</strong> Use Lucide or Feather for a minimal travel feel.</li>
+      </ul>
+
+      <h3>UI/UX Principles</h3>
+      <ol>
+        <li>Keep the trip flow short: Input → Generate → Refine → Save.</li>
+        <li>Show human context (local story) near itinerary days.</li>
+        <li>Provide quick actions for bookings and sharing.</li>
+        <li>Mobile-first: large tappable targets, compact timeline view.</li>
+      </ol>
+    </section>
+
+    <!-- 3. Page-by-Page Structure -->
+    <section id="structure" aria-labelledby="structure-title">
+      <h2 id="structure-title">3. Page-by-Page Structure</h2>
+
+      <!-- Home -->
+      <article id="page-home" aria-labelledby="home-title">
+        <h3 id="home-title">Home Page</h3>
+        <p>Purpose: Capture trip intent quickly and sell the idea with a clean hero CTA.</p>
+        <h4>Sections</h4>
+        <ul>
+          <li><strong>Navbar:</strong> Logo, Discover, Plan, About.</li>
+          <li><strong>Hero:</strong> Headline, small illustration, trip form (From, To, Dates, Budget, Interests), CTA: <em>Plan My Trip</em>.</li>
+          <li><strong>3 Feature Cards:</strong> Smart Itineraries, Local Stories, AI Packing Hacks.</li>
+        </ul>
+      </article>
+
+      <!-- Trip Results -->
+      <article id="page-results" aria-labelledby="results-title">
+        <h3 id="results-title">Trip Results Page</h3>
+        <p>When user clicks Plan, present an interactive itinerary and action cards.</p>
+
+        <h4>Layout</h4>
+        <ul>
+          <li><strong>Left:</strong> Day-by-day timeline (expandable day cards).</li>
+          <li><strong>Right:</strong> Summary cards: Hotels, Trains, Packing Tips, Local Folk Story, Safety Notes.</li>
+        </ul>
+
+        <h4>Card Behavior</h4>
+        <ul>
+          <li>Hotel cards show price, rating, and quick-book CTA.</li>
+          <li>Packing tips show local weather-sensitive items.</li>
+          <li>Local story shows 150–300 words with source / citation.</li>
+        </ul>
+      </article>
+
+      <!-- Discover -->
+      <article id="page-discover" aria-labelledby="discover-title">
+        <h3 id="discover-title">Discover Page</h3>
+        <p>Search and explore places and stories. Grid cards, filter by theme (history, food, spiritual circuits).</p>
+      </article>
+
+      <!-- Profile -->
+      <article id="page-profile" aria-labelledby="profile-title">
+        <h3 id="profile-title">Profile Page</h3>
+        <ul>
+          <li>Saved Trips</li>
+          <li>Favorite Stories</li>
+          <li>Preferences (budget, food)</li>
+          <li>Badges & Achievements</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- 4. Backend (How it works — simplified) -->
+    <section id="backend" aria-labelledby="backend-title">
+      <h2 id="backend-title">4. Backend — How it works (simplified)</h2>
+
+      <h3>Three core parts</h3>
+      <ol>
+        <li><strong>Data Storage:</strong> JSON files or Firebase (users.json, trips.json, stories.json)</li>
+        <li><strong>Core Logic:</strong> Local simulated generator → stores trips.json and returns structured JSON for UI</li>
+        <li><strong>Output Rendering:</strong> Frontend reads trip JSON and builds cards/timeline</li>
+      </ol>
+
+      <h3>Example trips.json structure</h3>
+      <pre><code>{
+  "trips": [
+    {
+      "id": "t101",
+      "user": "Swayam",
+      "from": "Lucknow",
+      "to": "Jaipur",
+      "budget": 5000,
+      "dates": {"from":"2025-11-10","to":"2025-11-13"},
+      "itinerary": [
+        {"day":1, "activities": ["Bazaar", "Heritage walk"]},
+        {"day":2, "activities": ["Temple", "Riverfront lunch"]}
+      ],
+      "hotels": [{"name":"Hotel Comfort","price":1200,"stars":3}],
+      "createdAt": "2025-11-01"
+    }
+  ]
+}</code></pre>
+
+      <h3>Flow (simple)</h3>
+      <ol>
+        <li>User fills form → frontend gathers inputs</li>
+        <li>Frontend calls generator (local function or later OpenAI)</li>
+        <li>Generator returns JSON → frontend stores it and renders results</li>
+      </ol>
+    </section>
+
+    <!-- 5. AI Logic Flow (without touching API) -->
+    <section id="ai" aria-labelledby="ai-title">
+      <h2 id="ai-title">5. AI Logic Flow (simulate first)</h2>
+
+      <p>Start by writing deterministic rules that mimic the AI's behavior. Replace with OpenAI later.</p>
+
+      <h3>Simple pseudo-code</h3>
+      <pre><code>function generateTrip(from, to, dates, budget, interests) {
+  // 1. Validate inputs
+  // 2. Load local stories for 'to' from stories.json
+  // 3. Pick top sights by interest tags (history, nature, food)
+  // 4. Build day-by-day plan with time budgets
+  // 5. Suggest 3 hotels within budget
+  // 6. Create packing tips based on weather & traditions
+  // 7. Return assembled JSON
+}</code></pre>
+
+      <h3>Heuristics examples</h3>
+      <ul>
+        <li>If interest includes "spiritual", add temple + local legend on one day.</li>
+        <li>If budget &lt; X, show hostels and local transport (buses/trains).</li>
+        <li>Use weather (if available) to adjust packing tips.</li>
+      </ul>
+    </section>
+
+    <!-- 6. Future Expansion ideas -->
+    <section id="future" aria-labelledby="future-title">
+      <h2 id="future-title">6. Future Expansion Ideas</h2>
+
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI Narrator Mode</td><td>Voice guide telling local legends and day-by-day narration.</td></tr>
+          <tr><td>Expense Tracker</td><td>Daily budget breakdown and live spending against plan.</td></tr>
+          <tr><td>Story Upload</td><td>Community uploads of folk tales and personal travel notes.</td></tr>
+          <tr><td>Spiritual Circuits</td><td>Prebuilt mythological routes (Narmada, Rama Path) with maps and rituals.</td></tr>
+          <tr><td>Weather Integration</td><td>Live packing suggestions based on forecast.</td></tr>
+          <tr><td>Partner Bookings</td><td>IRCTC / OTA integrations for hotel & train bookings.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Roadmap (suggested)</h3>
+      <ol>
+        <li>Phase 1: Prototype — local generator + JSON store</li>
+        <li>Phase 2: User accounts, sync (Firebase)</li>
+        <li>Phase 3: Connect OpenAI for rich narratives</li>
+        <li>Phase 4: Partnerships & booking APIs</li>
+      </ol>
+    </section>
+
+    <!-- Summary -->
+    <section id="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Summary</h2>
+      <p>PocketTrip layers UI, a simple backend, and an AI-like generator to produce soulful itineraries. Start with deterministic rules (local simulation), then swap in real AI and external APIs once the UX is validated.</p>
+
+      <h3>Quick checklist to start building</h3>
+      <ul>
+        <li>Build frontend: trip form, results page, discover feed.</li>
+        <li>Implement generator function (simulate with local rules).</li>
+        <li>Persist trips to JSON or Firebase for testing.</li>
+        <li>Measure user interactions, then integrate OpenAI for richer text.</li>
+      </ul>
     </section>
   </main>
 
-  <footer id="app-footer" role="contentinfo" style="padding:1rem 1.25rem;">
-  
-  
- 
+  <footer id="site-footer" aria-labelledby="footer-title">
+    <h3 id="footer-title">PocketTrip — Next Steps</h3>
+    <p>Founder: <strong>Swayam Mishra</strong>. Use this HTML as the project brief and wire it to your preferred CSS and JS. IDs and sections are in place for easy styling and scripting.</p>
   </footer>
-
-  <!-- TEMPLATE: task row (for JS cloning later) -->
-  <template id="taskRowTemplate">
-    <div class="task-row" role="group">
-      <label>Subject</label>
-      <select class="task-subject">
-        <option value="">Select subject</option>
-        <option value="maths">Maths</option>
-        <option value="science">Science</option>
-        <option value="sst">SST</option>
-        <option value="hindi">Hindi</option>
-        <option value="english">English</option>
-        <option value="other">Other</option>
-      </select>
-
-      <label>Task</label>
-      <input class="task-desc" type="text" placeholder="e.g., RD Sharma — 15 Qs" />
-
-      <label>Target</label>
-      <input class="task-target" type="text" placeholder="e.g., 15 Qs / 4 pages / 1 chapter" />
-
-      <label>Est hrs</label>
-      <input class="task-hours" type="number" step="0.25" min="0" />
-
-      <button type="button" class="remove-task">Remove</button>
-    </div>
-  </template>
-<script src="script.js"></script>
-          
-          </body>
-            
+</body>
 </html>
