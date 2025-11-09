@@ -3,241 +3,85 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PocketTrip — Product Brief</title>
-  <meta name="description" content="PocketTrip — concept, UI/UX, architecture, AI flow and expansion ideas (HTML-only brief)." />
-  <!--
-    NOTE: This is HTML-only deliverable.
-    Styles and scripts are intentionally omitted so you can attach your preferred CSS/JS later.
-    The structure uses semantic sections and IDs for easy 
- <!-- Link CSS -->
-<link rel="stylesheet" href="style.css">
-  -->
+  <title>Preparation Meter</title>
+
+  <!-- Put your stylesheet at: css/style.css -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Small hint for mobile browsers -->
+  <meta name="theme-color" content="#0b1220">
 </head>
 <body>
-  <header id="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">PocketTrip — Plan Smart. Travel Soulfully.</h1>
-    <p id="hero-sub">AI + Wikipedia + Travel Planner — deep itineraries, local stories, and real packing wisdom for curious travelers.</p>
-    <nav id="top-nav" aria-label="Primary">
-      <ul>
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="#design">App Design</a></li>
-        <li><a href="#structure">Page Structure</a></li>
-        <li><a href="#backend">Backend</a></li>
-        <li><a href="#ai">AI Logic</a></li>
-        <li><a href="#future">Future</a></li>
-      </ul>
-    </nav>
+  <header class="topbar" role="banner" aria-label="Preparation Meter header">
+    <div class="topbar-inner">
+      <h1 class="title">📘 Preparation Meter</h1>
+      <p class="subtitle">Track subject readiness and compare it to your goal.</p>
+    </div>
   </header>
 
-  <main id="content">
-    <!-- 1. Concept Recap -->
-    <section id="concept" aria-labelledby="concept-title">
-      <h2 id="concept-title">1. Concept Recap</h2>
-      <p><strong>PocketTrip</strong> = <em>AI + Wikipedia + Travel Planner</em>. It helps budget and curious travelers discover destinations, local stories, and build a useful itinerary (complete with packing tips and safety notes).</p>
-
-      <ul>
-        <li><strong>Audience:</strong> Budget travelers, students, solo explorers.</li>
-        <li><strong>Core idea:</strong> Enter trip parameters → receive a story-driven itinerary, packing checklist, and local cultural insights.</li>
-        <li><strong>Tagline:</strong> <em>Plan Smart. Travel Soulfully.</em></li>
-      </ul>
+  <main class="container" role="main">
+    <!-- Goal input -->
+    <section class="card goal" aria-labelledby="goalLabel">
+      <h2 id="goalLabel" class="card-title">Set your goal</h2>
+      <div class="goal-row">
+        <label for="goal" class="visually-hidden">Goal percentage</label>
+        <input
+          id="goal"
+          name="goal"
+          type="number"
+          inputmode="numeric"
+          min="0"
+          max="100"
+          step="1"
+          placeholder="Enter target % (e.g. 90)"
+          aria-describedby="goalHelp"
+          value="90"
+        />
+        <input id="goalRange" type="range" min="0" max="100" step="1" value="90" aria-hidden="true">
+      </div>
+      <small id="goalHelp" class="muted">Goal will be used to compare your overall preparation.</small>
     </section>
 
-    <!-- 2. App Design (UI/UX + Color Palette) -->
-    <section id="design" aria-labelledby="design-title">
-      <h2 id="design-title">2. App Design — UI/UX + Color Palette</h2>
+    <!-- Subjects (editable) -->
+    <section class="card subjects" aria-labelledby="subjectsLabel">
+      <h2 id="subjectsLabel" class="card-title">Subjects</h2>
 
-      <h3>Color Palette</h3>
-      <p>Primary colors and usage guide (hex):</p>
-      <ul>
-        <li><strong>Primary</strong>: <code>#2B8CFF</code> — Sky Blue (buttons, primary accents)</li>
-        <li><strong>Secondary</strong>: <code>#FFD166</code> — Golden Sand (cards, small accents)</li>
-        <li><strong>Background</strong>: <code>#F7FAFC</code> — Off-white (page background)</li>
-        <li><strong>Text</strong>: <code>#1A202C</code> — Dark Charcoal</li>
-        <li><strong>Accent</strong>: <code>#06D6A0</code> — Mint Green (success, positive actions)</li>
-        <li><strong>Error</strong>: <code>#EF476F</code> — Coral Red (warnings)</li>
-      </ul>
+      <form id="subjectsForm" novalidate>
+        <ul class="subjects-list" role="list">
+          <!-- Maths -->
+          <li class="subject-item" data-subject="Maths">
+            <div class="subject-header">
+              <label for="mathsInput">Maths</label>
+              <div class="subject-controls">
+                <input id="mathsInput" class="subject-number" type="number" min="0" max="100" step="1" value="70" aria-label="Maths percent">
+                <span class="percent-suffix">%</span>
+              </div>
+            </div>
+            <input class="subject-range" id="mathsRange" type="range" min="0" max="100" step="1" value="70" aria-hidden="true">
+            <progress id="maths" class="subject-progress" value="70" max="100" aria-label="Maths progress">70%</progress>
+          </li>
 
-      <h3>Typography & Style</h3>
-      <ul>
-        <li><strong>Font:</strong> <em>Poppins</em> or <em>Inter</em>.</li>
-        <li><strong>Corner radius:</strong> 16px for cards and components.</li>
-        <li><strong>Card style:</strong> Soft drop shadow, subtle gradients (sky → mint on hero).</li>
-        <li><strong>Icons:</strong> Use Lucide or Feather for a minimal travel feel.</li>
-      </ul>
+          <!-- Science -->
+          <li class="subject-item" data-subject="Science">
+            <div class="subject-header">
+              <label for="scienceInput">Science</label>
+              <div class="subject-controls">
+                <input id="scienceInput" class="subject-number" type="number" min="0" max="100" step="1" value="65" aria-label="Science percent">
+                <span class="percent-suffix">%</span>
+              </div>
+            </div>
+            <input class="subject-range" id="scienceRange" type="range" min="0" max="100" step="1" value="65" aria-hidden="true">
+            <progress id="science" class="subject-progress" value="65" max="100" aria-label="Science progress">65%</progress>
+          </li>
 
-      <h3>UI/UX Principles</h3>
-      <ol>
-        <li>Keep the trip flow short: Input → Generate → Refine → Save.</li>
-        <li>Show human context (local story) near itinerary days.</li>
-        <li>Provide quick actions for bookings and sharing.</li>
-        <li>Mobile-first: large tappable targets, compact timeline view.</li>
-      </ol>
-    </section>
-
-    <!-- 3. Page-by-Page Structure -->
-    <section id="structure" aria-labelledby="structure-title">
-      <h2 id="structure-title">3. Page-by-Page Structure</h2>
-
-      <!-- Home -->
-      <article id="page-home" aria-labelledby="home-title">
-        <h3 id="home-title">Home Page</h3>
-        <p>Purpose: Capture trip intent quickly and sell the idea with a clean hero CTA.</p>
-        <h4>Sections</h4>
-        <ul>
-          <li><strong>Navbar:</strong> Logo, Discover, Plan, About.</li>
-          <li><strong>Hero:</strong> Headline, small illustration, trip form (From, To, Dates, Budget, Interests), CTA: <em>Plan My Trip</em>.</li>
-          <li><strong>3 Feature Cards:</strong> Smart Itineraries, Local Stories, AI Packing Hacks.</li>
-        </ul>
-      </article>
-
-      <!-- Trip Results -->
-      <article id="page-results" aria-labelledby="results-title">
-        <h3 id="results-title">Trip Results Page</h3>
-        <p>When user clicks Plan, present an interactive itinerary and action cards.</p>
-
-        <h4>Layout</h4>
-        <ul>
-          <li><strong>Left:</strong> Day-by-day timeline (expandable day cards).</li>
-          <li><strong>Right:</strong> Summary cards: Hotels, Trains, Packing Tips, Local Folk Story, Safety Notes.</li>
-        </ul>
-
-        <h4>Card Behavior</h4>
-        <ul>
-          <li>Hotel cards show price, rating, and quick-book CTA.</li>
-          <li>Packing tips show local weather-sensitive items.</li>
-          <li>Local story shows 150–300 words with source / citation.</li>
-        </ul>
-      </article>
-
-      <!-- Discover -->
-      <article id="page-discover" aria-labelledby="discover-title">
-        <h3 id="discover-title">Discover Page</h3>
-        <p>Search and explore places and stories. Grid cards, filter by theme (history, food, spiritual circuits).</p>
-      </article>
-
-      <!-- Profile -->
-      <article id="page-profile" aria-labelledby="profile-title">
-        <h3 id="profile-title">Profile Page</h3>
-        <ul>
-          <li>Saved Trips</li>
-          <li>Favorite Stories</li>
-          <li>Preferences (budget, food)</li>
-          <li>Badges & Achievements</li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- 4. Backend (How it works — simplified) -->
-    <section id="backend" aria-labelledby="backend-title">
-      <h2 id="backend-title">4. Backend — How it works (simplified)</h2>
-
-      <h3>Three core parts</h3>
-      <ol>
-        <li><strong>Data Storage:</strong> JSON files or Firebase (users.json, trips.json, stories.json)</li>
-        <li><strong>Core Logic:</strong> Local simulated generator → stores trips.json and returns structured JSON for UI</li>
-        <li><strong>Output Rendering:</strong> Frontend reads trip JSON and builds cards/timeline</li>
-      </ol>
-
-      <h3>Example trips.json structure</h3>
-      <pre><code>{
-  "trips": [
-    {
-      "id": "t101",
-      "user": "Swayam",
-      "from": "Lucknow",
-      "to": "Jaipur",
-      "budget": 5000,
-      "dates": {"from":"2025-11-10","to":"2025-11-13"},
-      "itinerary": [
-        {"day":1, "activities": ["Bazaar", "Heritage walk"]},
-        {"day":2, "activities": ["Temple", "Riverfront lunch"]}
-      ],
-      "hotels": [{"name":"Hotel Comfort","price":1200,"stars":3}],
-      "createdAt": "2025-11-01"
-    }
-  ]
-}</code></pre>
-
-      <h3>Flow (simple)</h3>
-      <ol>
-        <li>User fills form → frontend gathers inputs</li>
-        <li>Frontend calls generator (local function or later OpenAI)</li>
-        <li>Generator returns JSON → frontend stores it and renders results</li>
-      </ol>
-    </section>
-
-    <!-- 5. AI Logic Flow (without touching API) -->
-    <section id="ai" aria-labelledby="ai-title">
-      <h2 id="ai-title">5. AI Logic Flow (simulate first)</h2>
-
-      <p>Start by writing deterministic rules that mimic the AI's behavior. Replace with OpenAI later.</p>
-
-      <h3>Simple pseudo-code</h3>
-      <pre><code>function generateTrip(from, to, dates, budget, interests) {
-  // 1. Validate inputs
-  // 2. Load local stories for 'to' from stories.json
-  // 3. Pick top sights by interest tags (history, nature, food)
-  // 4. Build day-by-day plan with time budgets
-  // 5. Suggest 3 hotels within budget
-  // 6. Create packing tips based on weather & traditions
-  // 7. Return assembled JSON
-}</code></pre>
-
-      <h3>Heuristics examples</h3>
-      <ul>
-        <li>If interest includes "spiritual", add temple + local legend on one day.</li>
-        <li>If budget &lt; X, show hostels and local transport (buses/trains).</li>
-        <li>Use weather (if available) to adjust packing tips.</li>
-      </ul>
-    </section>
-
-    <!-- 6. Future Expansion ideas -->
-    <section id="future" aria-labelledby="future-title">
-      <h2 id="future-title">6. Future Expansion Ideas</h2>
-
-      <table>
-        <thead>
-          <tr><th>Feature</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>AI Narrator Mode</td><td>Voice guide telling local legends and day-by-day narration.</td></tr>
-          <tr><td>Expense Tracker</td><td>Daily budget breakdown and live spending against plan.</td></tr>
-          <tr><td>Story Upload</td><td>Community uploads of folk tales and personal travel notes.</td></tr>
-          <tr><td>Spiritual Circuits</td><td>Prebuilt mythological routes (Narmada, Rama Path) with maps and rituals.</td></tr>
-          <tr><td>Weather Integration</td><td>Live packing suggestions based on forecast.</td></tr>
-          <tr><td>Partner Bookings</td><td>IRCTC / OTA integrations for hotel & train bookings.</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Roadmap (suggested)</h3>
-      <ol>
-        <li>Phase 1: Prototype — local generator + JSON store</li>
-        <li>Phase 2: User accounts, sync (Firebase)</li>
-        <li>Phase 3: Connect OpenAI for rich narratives</li>
-        <li>Phase 4: Partnerships & booking APIs</li>
-      </ol>
-    </section>
-
-    <!-- Summary -->
-    <section id="summary" aria-labelledby="summary-title">
-      <h2 id="summary-title">Summary</h2>
-      <p>PocketTrip layers UI, a simple backend, and an AI-like generator to produce soulful itineraries. Start with deterministic rules (local simulation), then swap in real AI and external APIs once the UX is validated.</p>
-
-      <h3>Quick checklist to start building</h3>
-      <ul>
-        <li>Build frontend: trip form, results page, discover feed.</li>
-        <li>Implement generator function (simulate with local rules).</li>
-        <li>Persist trips to JSON or Firebase for testing.</li>
-        <li>Measure user interactions, then integrate OpenAI for richer text.</li>
-      </ul>
-    </section>
-  </main>
-
-  <footer id="site-footer" aria-labelledby="footer-title">
-    <h3 id="footer-title">PocketTrip — Next Steps</h3>
-    <p>Founder: <strong>Swayam Mishra</strong>. Use this HTML as the project brief and wire it to your preferred CSS and JS. IDs and sections are in place for easy styling and scripting.</p>
-  </footer>
-<!-- Link JavaScript -->
-<script src="script.js"></script>
-</body>
-</html>
+          <!-- English -->
+          <li class="subject-item" data-subject="English">
+            <div class="subject-header">
+              <label for="englishInput">English</label>
+              <div class="subject-controls">
+                <input id="englishInput" class="subject-number" type="number" min="0" max="100" step="1" value="80" aria-label="English percent">
+                <span class="percent-suffix">%</span>
+              </div>
+            </div>
+            <input class="subject-range" id="englishRange" type="range" min="0" max="100" step="1" value="80" aria-hidden="true">
+            <progress
