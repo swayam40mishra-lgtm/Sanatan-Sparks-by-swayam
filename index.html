@@ -1,87 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Preparation Meter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Muskan ❤️</title>
 
-  <!-- Put your stylesheet at: css/style.css -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Small hint for mobile browsers -->
-  <meta name="theme-color" content="#0b1220">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar" role="banner" aria-label="Preparation Meter header">
-    <div class="topbar-inner">
-      <h1 class="title">📘 Preparation Meter</h1>
-      <p class="subtitle">Track subject readiness and compare it to your goal.</p>
+
+    <div class="container">
+
+        <div class="letter">
+
+            <h1>💌 Dear Muskan,</h1>
+
+            <p>
+                Sabse pehle, haan haan, mujhe pata hai 😭😂 tumne kaha tha ki sirf 10 minutes mein likha hai,
+                aur sach kahun toh 10 minutes kisi ke liye apni feelings likhne ke liye bahut kam hote hain.
+                Lekin phir bhi maine socha ki jitna time mila, usmein dil ki baat likh hi deta hoon.
+            </p>
+
+            <p>
+                Pathak ji, mujhe kabhi nahi laga tha ki koi insaan meri life mein itni importance le lega.
+                Pehle tum bas ek achhi si ladki thi, phir ek achhi dost bani, aur pata hi nahi chala kab tum
+                meri daily smile, meri habit aur meri favourite person ban gayi.
+            </p>
+
+            <p>
+                Tumhari baaton mein kuch alag hai. Kabhi tum mujhe hasati ho, kabhi pareshaan karti ho,
+                kabhi gussa dilati ho, aur phir wahi insaan mujhe sabse zyada sukoon bhi deta hai.
+                Shayad isi ko pyaar kehte hain.
+            </p>
+
+            <p>
+                Muskan, mujhe tumhari sirf achhi baatein nahi pasand. Mujhe tumhari woh aadat bhi pasand hai
+                jab tum bina wajah gussa ho jaati ho, jab tum zid karti ho, jab tum kisi baat par overthink
+                karti ho. Kyunki ye sab milkar tumhe "tum" banata hai.
+            </p>
+
+            <p>
+                Anshika, agar koi mujhse puche ki meri favourite feeling kya hai, toh shayad mera jawab hoga —
+                tumse baat karna. Din kitna bhi ajeeb ho, tumhari ek message notification mood better kar deti hai.
+            </p>
+
+            <p>
+                Aur ek baat jo shayad main utna bolta nahi hoon — I am genuinely proud of you.
+                Tum jitni strong ho, jitni caring ho, aur jitna effort tum apne logon ke liye karti ho,
+                woh bahut special hai.
+            </p>
+
+            <p>
+                Main future predict nahi kar sakta, lekin itna zaroor jaanta hoon ki aaj jo feelings mere dil
+                mein hain, woh sachchi hain. Tum mere liye sirf ek crush ya passing phase nahi ho.
+                Tum woh insaan ho jiske saath main apni khushiyan, apni bakwaas, apni problems aur apni
+                achievements sab share karna chahta hoon.
+            </p>
+
+            <p>
+                Aur ab last mein ek confession 😭
+            </p>
+
+            <p>
+                Maine kabhi tumse kuch maanga nahi.
+                Na attention, na promises, na koi special treatment.
+            </p>
+
+            <p>
+                Lekin aaj ek chhoti si demand hai...
+            </p>
+
+            <p>Chahe kabhi kitna bhi gussa ho jao, mujhe bina bataye door mat jaana.</p>
+
+            <p>Gussa kar lena.</p>
+
+            <p>Daant lena.</p>
+
+            <p>Meri taang kheench lena.</p>
+
+            <p>Lekin baat karna mat chhodna.</p>
+
+            <p>
+                Kyunki meri life mein bahut log aaye aur gaye,
+                par tum unmein se nahi ho jise main khona chahta hoon.
+            </p>
+
+            <div class="signature">
+                <h2>Yours,</h2>
+                <h3>The guy who somehow managed to write this in less than 10 minutes 😭❤️</h3>
+            </div>
+
+            <div class="button-container">
+                <a href="tel:6394400744">
+                    <button>📞 text Me</button>
+                </a>
+            </div>
+
+        </div>
+
     </div>
-  </header>
 
-  <main class="container" role="main">
-    <!-- Goal input -->
-    <section class="card goal" aria-labelledby="goalLabel">
-      <h2 id="goalLabel" class="card-title">Set your goal</h2>
-      <div class="goal-row">
-        <label for="goal" class="visually-hidden">Goal percentage</label>
-        <input
-          id="goal"
-          name="goal"
-          type="number"
-          inputmode="numeric"
-          min="0"
-          max="100"
-          step="1"
-          placeholder="Enter target % (e.g. 90)"
-          aria-describedby="goalHelp"
-          value="90"
-        />
-        <input id="goalRange" type="range" min="0" max="100" step="1" value="90" aria-hidden="true">
-      </div>
-      <small id="goalHelp" class="muted">Goal will be used to compare your overall preparation.</small>
-    </section>
+    <script src="script.js"></script>
 
-    <!-- Subjects (editable) -->
-    <section class="card subjects" aria-labelledby="subjectsLabel">
-      <h2 id="subjectsLabel" class="card-title">Subjects</h2>
-
-      <form id="subjectsForm" novalidate>
-        <ul class="subjects-list" role="list">
-          <!-- Maths -->
-          <li class="subject-item" data-subject="Maths">
-            <div class="subject-header">
-              <label for="mathsInput">Maths</label>
-              <div class="subject-controls">
-                <input id="mathsInput" class="subject-number" type="number" min="0" max="100" step="1" value="70" aria-label="Maths percent">
-                <span class="percent-suffix">%</span>
-              </div>
-            </div>
-            <input class="subject-range" id="mathsRange" type="range" min="0" max="100" step="1" value="70" aria-hidden="true">
-            <progress id="maths" class="subject-progress" value="70" max="100" aria-label="Maths progress">70%</progress>
-          </li>
-
-          <!-- Science -->
-          <li class="subject-item" data-subject="Science">
-            <div class="subject-header">
-              <label for="scienceInput">Science</label>
-              <div class="subject-controls">
-                <input id="scienceInput" class="subject-number" type="number" min="0" max="100" step="1" value="65" aria-label="Science percent">
-                <span class="percent-suffix">%</span>
-              </div>
-            </div>
-            <input class="subject-range" id="scienceRange" type="range" min="0" max="100" step="1" value="65" aria-hidden="true">
-            <progress id="science" class="subject-progress" value="65" max="100" aria-label="Science progress">65%</progress>
-          </li>
-
-          <!-- English -->
-          <li class="subject-item" data-subject="English">
-            <div class="subject-header">
-              <label for="englishInput">English</label>
-              <div class="subject-controls">
-                <input id="englishInput" class="subject-number" type="number" min="0" max="100" step="1" value="80" aria-label="English percent">
-                <span class="percent-suffix">%</span>
-              </div>
-            </div>
-            <input class="subject-range" id="englishRange" type="range" min="0" max="100" step="1" value="80" aria-hidden="true">
-            <progress
+</body>
+</html>
