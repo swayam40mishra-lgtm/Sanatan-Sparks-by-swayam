@@ -1,74 +1,156 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const intro = document.getElementById("intro");
-const enterBtn = document.querySelector(".enter-btn");
+    const intro = document.getElementById("intro");
+    const enterBtn = document.querySelector(".enter-btn");
 
-// Hide all sections initially
-const sections = document.querySelectorAll(".scene, .letter-card");
+    const part1 = document.getElementById("part1");
+    const part2 = document.getElementById("part2");
+    const part3 = document.getElementById("part3");
 
-sections.forEach(section => {
-    section.style.opacity = "0";
-    section.style.transform = "translateY(60px)";
-    section.style.transition =
-        "opacity 1.4s ease, transform 1.4s ease";
-});
+    const continue1 = document.getElementById("continue1");
+    const continue2 = document.getElementById("continue2");
 
-// ENTER BUTTON
-if (enterBtn) {
+    const audio = document.getElementById("reveal-audio");
 
-    enterBtn.addEventListener("click", () => {
+    // =========================
+    // INITIAL STATE
+    // =========================
 
-        intro.style.opacity = "0";
-        intro.style.pointerEvents = "none";
+    if (part2) {
+        part2.style.display = "none";
+    }
 
-        setTimeout(() => {
+    if (part3) {
+        part3.style.display = "none";
+    }
 
-            intro.style.display = "none";
+    // =========================
+    // INTRO BUTTON
+    // =========================
 
-            const firstSection =
-                document.getElementById("before-you");
+    if (enterBtn) {
 
-            if (firstSection) {
+        enterBtn.addEventListener("click", () => {
 
-                window.scrollTo({
-                    top: firstSection.offsetTop,
+            intro.style.opacity = "0";
+            intro.style.pointerEvents = "none";
+
+            setTimeout(() => {
+
+                intro.style.display = "none";
+
+                const firstSection =
+                    document.getElementById("before-you");
+
+                if (firstSection) {
+
+                    firstSection.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }
+
+            }, 1000);
+
+        });
+
+    }
+
+    // =========================
+    // PART 1 -> PART 2
+    // =========================
+
+    if (continue1) {
+
+        continue1.addEventListener("click", () => {
+
+            part2.style.display = "block";
+
+            setTimeout(() => {
+
+                part2.scrollIntoView({
                     behavior: "smooth"
+                });
+
+            }, 150);
+
+        });
+
+    }
+
+    // =========================
+    // PART 2 -> PART 3
+    // =========================
+
+    if (continue2) {
+
+        continue2.addEventListener("click", () => {
+
+            part3.style.display = "block";
+
+            setTimeout(() => {
+
+                part3.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }, 150);
+
+            // Auto Play Audio
+
+            if (audio) {
+
+                audio.play().catch(() => {
+                    console.log("Audio autoplay blocked");
                 });
 
             }
 
-        }, 1200);
+        });
+
+    }
+
+    // =========================
+    // SCROLL REVEAL
+    // =========================
+
+    const revealElements = document.querySelectorAll(
+        ".scene, .letter-card, .app-container"
+    );
+
+    revealElements.forEach(el => {
+
+        el.style.opacity = "0";
+        el.style.transform = "translateY(40px)";
+        el.style.transition =
+            "opacity 1s ease, transform 1s ease";
 
     });
 
-}
+    const observer = new IntersectionObserver(
 
-// SCROLL REVEALS
-const observer = new IntersectionObserver(
+        (entries) => {
 
-    (entries) => {
+            entries.forEach(entry => {
 
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
+                if (!entry.isIntersecting) return;
 
                 entry.target.style.opacity = "1";
                 entry.target.style.transform =
                     "translateY(0px)";
 
-                // Reveal children one by one
                 const children =
                     entry.target.querySelectorAll(
-                        "h1,h2,h3,p,span,a,img"
+                        "h1,h2,h3,p,span,a,img,button"
                     );
 
                 children.forEach((child, index) => {
 
                     child.style.opacity = "0";
                     child.style.transform =
-                        "translateY(20px)";
+                        "translateY(15px)";
                     child.style.transition =
-                        "all 1s ease";
+                        "all .8s ease";
 
                     setTimeout(() => {
 
@@ -76,88 +158,154 @@ const observer = new IntersectionObserver(
                         child.style.transform =
                             "translateY(0px)";
 
-                    }, index * 180);
+                    }, index * 120);
 
                 });
 
-            }
+                observer.unobserve(entry.target);
 
-        });
+            });
 
-    },
+        },
 
-    {
-        threshold: 0.25
-    }
+        {
+            threshold: 0.20
+        }
 
-);
-
-sections.forEach(section => {
-    observer.observe(section);
-});
-
-// VOICE REVEAL
-const voiceSection =
-    document.getElementById("voice-reveal");
-
-const audio =
-    document.getElementById("reveal-audio");
-
-if (voiceSection && audio) {
-
-    const voiceObserver =
-        new IntersectionObserver(
-
-            (entries) => {
-
-                entries.forEach(entry => {
-
-                    if (entry.isIntersecting) {
-
-                        audio.play().catch(() => {
-                            console.log(
-                                "Autoplay blocked by browser"
-                            );
-                        });
-
-                    }
-
-                });
-
-            },
-
-            {
-                threshold: 0.6
-            }
-
-        );
-
-    voiceObserver.observe(voiceSection);
-
-}
-
-// GOLD GLOW EFFECT
-const glowElements =
-    document.querySelectorAll(
-        ".gold-text, .highlight-line, h1"
     );
 
-glowElements.forEach(el => {
+    revealElements.forEach(el => {
+        observer.observe(el);
+    });
 
-    setInterval(() => {
+    // =========================
+    // APP REVEAL SPECIAL EFFECT
+    // =========================
 
-        el.style.textShadow =
-            "0 0 12px rgba(212,175,55,.35), 0 0 28px rgba(212,175,55,.15)";
+    const appReveal =
+        document.getElementById("app-reveal");
 
-        setTimeout(() => {
+    if (appReveal) {
+
+        const appObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (!entry.isIntersecting)
+                            return;
+
+                        const logo =
+                            appReveal.querySelector(
+                                ".logo"
+                            );
+
+                        const title =
+                            appReveal.querySelector(
+                                "h1"
+                            );
+
+                        const text =
+                            appReveal.querySelector(
+                                "p"
+                            );
+
+                        const btn =
+                            appReveal.querySelector(
+                                ".download-btn"
+                            );
+
+                        const sign =
+                            appReveal.querySelector(
+                                ".signature"
+                            );
+
+                        setTimeout(() => {
+
+                            if (logo)
+                                logo.classList.add(
+                                    "show"
+                                );
+
+                        }, 400);
+
+                        setTimeout(() => {
+
+                            if (title)
+                                title.classList.add(
+                                    "show"
+                                );
+
+                        }, 900);
+
+                        setTimeout(() => {
+
+                            if (text)
+                                text.classList.add(
+                                    "show"
+                                );
+
+                        }, 1400);
+
+                        setTimeout(() => {
+
+                            if (btn)
+                                btn.classList.add(
+                                    "show"
+                                );
+
+                        }, 1900);
+
+                        setTimeout(() => {
+
+                            if (sign)
+                                sign.classList.add(
+                                    "show"
+                                );
+
+                        }, 2400);
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.4
+                }
+
+            );
+
+        appObserver.observe(appReveal);
+
+    }
+
+    // =========================
+    // GOLD TEXT GLOW
+    // =========================
+
+    const glowElements =
+        document.querySelectorAll(
+            ".gold-text, .highlight-line"
+        );
+
+    glowElements.forEach(el => {
+
+        setInterval(() => {
 
             el.style.textShadow =
-                "0 0 6px rgba(212,175,55,.15)";
+                "0 0 15px rgba(212,175,55,.45), 0 0 30px rgba(212,175,55,.20)";
 
-        }, 1200);
+            setTimeout(() => {
 
-    }, 3500);
+                el.style.textShadow =
+                    "0 0 6px rgba(212,175,55,.15)";
 
-});
+            }, 1200);
+
+        }, 3500);
+
+    });
 
 });
