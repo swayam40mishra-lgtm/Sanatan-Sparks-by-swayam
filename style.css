@@ -717,15 +717,23 @@ a {
 }
 
 /* reveal helpers for app section */
-.logo.show,
-.app-container h1.show,
-.app-container p.show,
-.download-btn.show,
-.signature.show {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1) !important;
-}
+.logo,
+.app-container h1,
+.app-container p,
+.download-btn,
+.signature {
 
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        scale(0.98);
+
+    transition:
+        opacity 5s ease,
+        transform 5s ease;
+
+}
 /* =========================================================
    SMALL IMPROVEMENTS / FALLBACKS
 ========================================================= */
