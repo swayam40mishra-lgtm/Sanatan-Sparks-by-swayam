@@ -202,6 +202,57 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ".logo"
                             );
 
+                        setTimeout(() => {
+
+    if (logo)
+        logo.classList.add("show");
+
+}, 500);
+
+setTimeout(() => {
+
+    if (title)
+        title.classList.add("show");
+
+}, 2500);
+
+setTimeout(() => {
+
+    if (text)
+        text.classList.add("show");
+
+}, 4500);
+
+setTimeout(() => {
+
+    if (btn)
+        btn.classList.add("show");
+
+}, 6500);
+
+setTimeout(() => {
+
+    if (sign)
+        sign.classList.add("show");
+
+}, 8500);
+
+                        
+const container =
+appReveal.querySelector(
+".app-container"
+);
+
+setTimeout(() => {
+
+    if (container)
+        container.classList.add(
+            "show"
+        );
+
+}, 300);
+
+                        
                         const title =
                             appReveal.querySelector(
                                 "h1"
@@ -222,50 +273,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ".signature"
                             );
 
-                        setTimeout(() => {
-
-                            if (logo)
-                                logo.classList.add(
-                                    "show"
-                                );
-
-                        }, 400);
-
-                        setTimeout(() => {
-
-                            if (title)
-                                title.classList.add(
-                                    "show"
-                                );
-
-                        }, 900);
-
-                        setTimeout(() => {
-
-                            if (text)
-                                text.classList.add(
-                                    "show"
-                                );
-
-                        }, 1400);
-
-                        setTimeout(() => {
-
-                            if (btn)
-                                btn.classList.add(
-                                    "show"
-                                );
-
-                        }, 1900);
-
-                        setTimeout(() => {
-
-                            if (sign)
-                                sign.classList.add(
-                                    "show"
-                                );
-
-                        }, 2400);
 
                     });
 
