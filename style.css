@@ -37,13 +37,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+#part2,
+#part3{
+    display:none;
+}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  min-height: 100vh;
+  min-height: 60vh;
   overflow-x: hidden;
   background:
     radial-gradient(circle at top center, rgba(212, 175, 55, 0.05), transparent 28%),
@@ -196,7 +200,36 @@ a {
   background: rgba(212, 175, 55, 0.06);
   border-color: rgba(212, 175, 55, 0.42);
 }
+.continue-btn{
+    padding:14px 34px;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
 
+    background:linear-gradient(
+        135deg,
+        #f5d67b,
+        #d4af37
+    );
+
+    color:#111;
+    font-size:1rem;
+    font-weight:700;
+
+    box-shadow:
+        0 0 20px rgba(212,175,55,.25);
+
+    transition:.35s;
+}
+
+.continue-btn:hover{
+    transform:translateY(-2px);
+}
+
+.part-navigation{
+    text-align:center;
+    padding:20px 0 40px;
+}
 /* =========================================================
    INTRO SCREEN
 ========================================================= */
@@ -801,4 +834,25 @@ a {
     min-width: 0;
     width: 100%;
   }
+
+   @media(max-width:768px){
+
+    .scene{
+        min-height:65vh;
+    }
+
+    .letter-card{
+        padding:22px 18px;
+    }
+
+    .continue-btn{
+        width:90%;
+        max-width:300px;
+    }
+
+    .scene-content{
+        padding:10px;
+    }
+
+   
   }
