@@ -12,28 +12,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const audio = document.getElementById("reveal-audio");
 
-    // =====================================
+    // =========================
     // INITIAL STATE
-    // =====================================
+    // =========================
 
     if (part1) part1.style.display = "block";
     if (part2) part2.style.display = "none";
     if (part3) part3.style.display = "none";
 
-    // =====================================
-    // INTRO ENTER
-    // =====================================
+    // =========================
+    // ENTER BUTTON
+    // =========================
 
     enterBtn?.addEventListener("click", () => {
 
-        intro.style.transition = "opacity 1.5s ease";
         intro.style.opacity = "0";
 
         setTimeout(() => {
 
             intro.style.display = "none";
 
-            document.getElementById("before-you")
+            document
+                .getElementById("before-you")
                 ?.scrollIntoView({
                     behavior: "smooth"
                 });
@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // =====================================
+    // =========================
     // PART 1 -> PART 2
-    // =====================================
+    // =========================
 
     continue1?.addEventListener("click", () => {
 
@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // =====================================
+    // =========================
     // PART 2 -> PART 3
-    // =====================================
+    // =========================
 
     continue2?.addEventListener("click", () => {
 
@@ -84,17 +84,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
             audio?.play().catch(() => {});
 
+            // APP REVEAL SEQUENCE
+
+            const logo =
+                document.querySelector(".logo");
+
+            const title =
+                document.querySelector(".app-container h1");
+
+            const text =
+                document.querySelector(".app-container p");
+
+            const btn =
+                document.querySelector(".download-btn");
+
+            const sign =
+                document.querySelector(".signature");
+
+            setTimeout(() => {
+                logo?.classList.add("show");
+            }, 500);
+
+            setTimeout(() => {
+                title?.classList.add("show");
+            }, 3500);
+
+            setTimeout(() => {
+                text?.classList.add("show");
+            }, 6500);
+
+            setTimeout(() => {
+                btn?.classList.add("show");
+            }, 9500);
+
+            setTimeout(() => {
+                sign?.classList.add("show");
+            }, 12500);
+
         }, 1000);
 
     });
 
-    // =====================================
+    // =========================
     // SCROLL REVEAL
-    // =====================================
+    // =========================
 
-    const revealItems = document.querySelectorAll(
-        ".scene, .letter-card"
-    );
+    const revealItems =
+        document.querySelectorAll(
+            ".scene, .letter-card"
+        );
 
     revealItems.forEach(item => {
 
@@ -105,183 +143,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    const revealObserver = new IntersectionObserver(
+    const revealObserver =
+        new IntersectionObserver(
 
-        (entries) => {
+            (entries) => {
 
-            entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                if (!entry.isIntersecting) return;
+                    if (!entry.isIntersecting)
+                        return;
 
-                entry.target.style.opacity = "1";
-                entry.target.style.transform =
-                    "translateY(0)";
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform =
+                        "translateY(0)";
 
-                observerChildren(entry.target);
+                    const children =
+                        entry.target.querySelectorAll(
+                            "h1,h2,h3,p,span,a,img,button"
+                        );
 
-                revealObserver.unobserve(entry.target);
+                    children.forEach((child, index) => {
 
-            });
+                        child.style.opacity = "0";
+                        child.style.transform =
+                            "translateY(20px)";
+                        child.style.transition =
+                            "all 1.2s ease";
 
-        },
+                        setTimeout(() => {
 
-        {
-            threshold: 0.15
-        }
+                            child.style.opacity = "1";
+                            child.style.transform =
+                                "translateY(0)";
 
-    );
+                        }, index * 250);
+
+                    });
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                });
+
+            },
+
+            {
+                threshold: 0.15
+            }
+
+        );
 
     revealItems.forEach(item => {
         revealObserver.observe(item);
     });
 
-    // =====================================
-    // CHILD STAGGER EFFECT
-    // =====================================
-
-    function observerChildren(parent) {
-
-        const elements =
-            parent.querySelectorAll(
-                "h1,h2,h3,p,span,a,img,button"
-            );
-
-        elements.forEach((el, index) => {
-
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-            el.style.transition =
-                "opacity 1.2s ease, transform 1.2s ease";
-
-            setTimeout(() => {
-
-                el.style.opacity = "1";
-                el.style.transform = "translateY(0)";
-
-            }, index * 250);
-
-        });
-
-    }
-
-    // =====================================
-    // APP REVEAL
-    // =====================================
-
-    const appReveal =
-        document.getElementById("app-reveal");
-
-    if (appReveal) {
-
-        const logo =
-            appReveal.querySelector(".logo");
-
-        const title =
-            appReveal.querySelector("h1");
-
-        const text =
-            appReveal.querySelector("p");
-
-        const btn =
-            appReveal.querySelector(".download-btn");
-
-        const sign =
-            appReveal.querySelector(".signature");
-
-        [
-            logo,
-            title,
-            text,
-            btn,
-            sign
-        ].forEach(el => {
-
-            if (!el) return;
-
-            el.style.opacity = "0";
-            el.style.transform =
-                "translateY(30px) scale(.95)";
-
-        });
-
-        const appObserver =
-            new IntersectionObserver(
-
-                (entries) => {
-
-                    entries.forEach(entry => {
-
-                        if (!entry.isIntersecting)
-                            return;
-
-                        // Logo
-                        
-
-                        appObserver.unobserve(
-                            appReveal
-                        );
-
-                    });
-
-                },
-
-                {
-                    threshold: 0.50
-                }
-
-            );
-
-        appObserver.observe(appReveal);
-
-    }
-
-    // =====================================
-    // GOLD GLOW
-    // =====================================
+    // =========================
+    // GOLD GLOW EFFECT
+    // =========================
 
     const glowItems =
         document.querySelectorAll(
- setTimeout(() => {
-
-    if (logo) {
-        logo.classList.add("show");
-    }
-
-}, 0);
-
-setTimeout(() => {
-
-    if (title) {
-        title.classList.add("show");
-    }
-
-}, 4000);
-
-setTimeout(() => {
-
-    if (text) {
-        text.classList.add("show");
-    }
-
-}, 8000);
-
-setTimeout(() => {
-
-    if (btn) {
-        btn.classList.add("show");
-    }
-
-}, 12000);
-
-setTimeout(() => {
-
-    if (sign) {
-        sign.classList.add("show");
-    }
-
-}, 16000);           
-    
-    ".gold-text, .highlight-line"
+            ".gold-text, .highlight-line"
         );
 
     glowItems.forEach(item => {
