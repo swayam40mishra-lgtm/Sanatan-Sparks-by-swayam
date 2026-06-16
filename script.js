@@ -203,54 +203,24 @@ document.addEventListener("DOMContentLoaded", () => {
                             );
 
                         setTimeout(() => {
-
-    if (logo)
-        logo.classList.add("show");
-
-}, 500);
+    logo.classList.add("show");
+}, 0);
 
 setTimeout(() => {
-
-    if (title)
-        title.classList.add("show");
-
-}, 2500);
+    title.classList.add("show");
+}, 2000);
 
 setTimeout(() => {
-
-    if (text)
-        text.classList.add("show");
-
-}, 4500);
+    text.classList.add("show");
+}, 4000);
 
 setTimeout(() => {
-
-    if (btn)
-        btn.classList.add("show");
-
-}, 6500);
+    btn.classList.add("show");
+}, 6000);
 
 setTimeout(() => {
-
-    if (sign)
-        sign.classList.add("show");
-
-}, 8500);
-
-                        
-const container =
-appReveal.querySelector(
-".app-container"
-);
-
-setTimeout(() => {
-
-    if (container)
-        container.classList.add(
-            "show"
-        );
-
-}, 300);
+    sign.classList.add("show");
+}, 8000);
 
                         
                         const title =
