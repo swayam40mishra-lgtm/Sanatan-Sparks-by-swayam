@@ -215,29 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             return;
 
                         // Logo
-                        setTimeout(() => {
-                            logo?.classList.add("show");
-                        }, 1000);
-
-                        // MUSKAN
-                        setTimeout(() => {
-                            title?.classList.add("show");
-                        }, 5000);
-
-                        // Built for one person
-                        setTimeout(() => {
-                            text?.classList.add("show");
-                        }, 9000);
-
-                        // Download Button
-                        setTimeout(() => {
-                            btn?.classList.add("show");
-                        }, 13000);
-
-                        // Signature
-                        setTimeout(() => {
-                            sign?.classList.add("show");
-                        }, 17000);
+                        
 
                         appObserver.unobserve(
                             appReveal
@@ -263,7 +241,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const glowItems =
         document.querySelectorAll(
-            ".gold-text, .highlight-line"
+ setTimeout(() => {
+
+    if (logo) {
+        logo.classList.add("show");
+    }
+
+}, 0);
+
+setTimeout(() => {
+
+    if (title) {
+        title.classList.add("show");
+    }
+
+}, 4000);
+
+setTimeout(() => {
+
+    if (text) {
+        text.classList.add("show");
+    }
+
+}, 8000);
+
+setTimeout(() => {
+
+    if (btn) {
+        btn.classList.add("show");
+    }
+
+}, 12000);
+
+setTimeout(() => {
+
+    if (sign) {
+        sign.classList.add("show");
+    }
+
+}, 16000);           
+    
+    ".gold-text, .highlight-line"
         );
 
     glowItems.forEach(item => {
