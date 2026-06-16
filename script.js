@@ -179,109 +179,100 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================
-    // APP REVEAL SPECIAL EFFECT
-    // =========================
+// =========================
+// APP REVEAL SPECIAL EFFECT
+// =========================
 
-    const appReveal =
-        document.getElementById("app-reveal");
+const appReveal =
+    document.getElementById("app-reveal");
 
-    if (appReveal) {
+if (appReveal) {
 
-        const appObserver =
-            new IntersectionObserver(
+    const appObserver =
+        new IntersectionObserver(
 
-                (entries) => {
+            (entries) => {
 
-                    entries.forEach(entry => {
+                entries.forEach(entry => {
 
-                        if (!entry.isIntersecting)
-                            return;
+                    if (!entry.isIntersecting)
+                        return;
 
-                        const logo =
-    appReveal.querySelector(".logo");
+                    const logo =
+                        appReveal.querySelector(".logo");
 
-const title =
-    appReveal.querySelector("h1");
+                    const title =
+                        appReveal.querySelector("h1");
 
-const text =
-    appReveal.querySelector("p");
+                    const text =
+                        appReveal.querySelector("p");
 
-const btn =
-    appReveal.querySelector(".download-btn");
+                    const btn =
+                        appReveal.querySelector(".download-btn");
 
-const sign =
-    appReveal.querySelector(".signature");
+                    const sign =
+                        appReveal.querySelector(".signature");
 
-setTimeout(() => {
+                    // Logo
 
-    if (logo)
-        logo.classList.add("show");
+                    setTimeout(() => {
 
-}, 0);
+                        if (logo)
+                            logo.classList.add("show");
 
-setTimeout(() => {
+                    }, 0);
 
-    if (title)
-        title.classList.add("show");
+                    // MUSKAN
 
-}, 1500);
+                    setTimeout(() => {
 
-setTimeout(() => {
+                        if (title)
+                            title.classList.add("show");
 
-    if (text)
-        text.classList.add("show");
+                    }, 1500);
 
-}, 3000);
+                    // Built for one person
 
-setTimeout(() => {
+                    setTimeout(() => {
 
-    if (btn)
-        btn.classList.add("show");
+                        if (text)
+                            text.classList.add("show");
 
-}, 4500);
+                    }, 3000);
 
-setTimeout(() => {
+                    // Download button
 
-    if (sign)
-        sign.classList.add("show");
+                    setTimeout(() => {
 
-}, 6000);
-                        
-                        const title =
-                            appReveal.querySelector(
-                                "h1"
-                            );
+                        if (btn)
+                            btn.classList.add("show");
 
-                        const text =
-                            appReveal.querySelector(
-                                "p"
-                            );
+                    }, 4500);
 
-                        const btn =
-                            appReveal.querySelector(
-                                ".download-btn"
-                            );
+                    // Signature
 
-                        const sign =
-                            appReveal.querySelector(
-                                ".signature"
-                            );
+                    setTimeout(() => {
 
+                        if (sign)
+                            sign.classList.add("show");
 
-                    });
+                    }, 6000);
 
-                },
+                    appObserver.unobserve(appReveal);
 
-                {
-                    threshold: 0.4
-                }
+                });
 
-            );
+            },
 
-        appObserver.observe(appReveal);
+            {
+                threshold: 0.4
+            }
 
-    }
+        );
 
+    appObserver.observe(appReveal);
+
+}
     // =========================
     // GOLD TEXT GLOW
     // =========================
