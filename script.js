@@ -218,45 +218,23 @@ if (appReveal) {
                     setTimeout(() => {
 
                         if (logo)
-                            logo.classList.add("show");
+                            logo.classList.add("show"); // 0s
 
-                    }, 0);
+setTimeout(() => {
+    title.classList.add("show");
+}, 4000);
 
-                    // MUSKAN
+setTimeout(() => {
+    text.classList.add("show");
+}, 8000);
 
-                    setTimeout(() => {
+setTimeout(() => {
+    btn.classList.add("show");
+}, 12000);
 
-                        if (title)
-                            title.classList.add("show");
-
-                    }, 1500);
-
-                    // Built for one person
-
-                    setTimeout(() => {
-
-                        if (text)
-                            text.classList.add("show");
-
-                    }, 3000);
-
-                    // Download button
-
-                    setTimeout(() => {
-
-                        if (btn)
-                            btn.classList.add("show");
-
-                    }, 4500);
-
-                    // Signature
-
-                    setTimeout(() => {
-
-                        if (sign)
-                            sign.classList.add("show");
-
-                    }, 6000);
+setTimeout(() => {
+    sign.classList.add("show");
+}, 16000);
 
                     appObserver.unobserve(appReveal);
 
