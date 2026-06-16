@@ -717,16 +717,20 @@ a {
 }
 
 /* reveal helpers for app section */
+
 .logo,
 .app-container h1,
 .app-container p,
 .download-btn,
 .signature {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.8s ease,
-                transform 1.8s ease;
-   } 
+
+    opacity:0;
+    transform:translateY(40px) scale(.95);
+
+    transition:
+        opacity 4s ease,
+        transform 4s ease;
+}
 
 
 /* =========================================================
