@@ -100,12 +100,10 @@ a {
 .fade-in {
   animation: fadeIn 1.2s ease forwards;
 }
-
 .fade-section,
 .scene,
 .letter-card,
-.final-card,
-.app-container {
+.final-card {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.9s ease, transform 0.9s ease;
@@ -608,7 +606,10 @@ a {
     radial-gradient(circle at top center, rgba(212, 175, 55, 0.06), transparent 25%),
     linear-gradient(180deg, #050505 0%, #090909 100%);
 }
-
+.app-container{
+    opacity:1 !important;
+    transform:none !important;
+}
 #app-reveal::before {
   content: "";
   position: fixed;
