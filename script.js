@@ -198,30 +198,54 @@ document.addEventListener("DOMContentLoaded", () => {
                             return;
 
                         const logo =
-                            appReveal.querySelector(
-                                ".logo"
-                            );
+    appReveal.querySelector(".logo");
 
-                        setTimeout(() => {
-    logo.classList.add("show");
+const title =
+    appReveal.querySelector("h1");
+
+const text =
+    appReveal.querySelector("p");
+
+const btn =
+    appReveal.querySelector(".download-btn");
+
+const sign =
+    appReveal.querySelector(".signature");
+
+setTimeout(() => {
+
+    if (logo)
+        logo.classList.add("show");
+
 }, 0);
 
 setTimeout(() => {
-    title.classList.add("show");
-}, 2000);
+
+    if (title)
+        title.classList.add("show");
+
+}, 1500);
 
 setTimeout(() => {
-    text.classList.add("show");
-}, 4000);
+
+    if (text)
+        text.classList.add("show");
+
+}, 3000);
 
 setTimeout(() => {
-    btn.classList.add("show");
+
+    if (btn)
+        btn.classList.add("show");
+
+}, 4500);
+
+setTimeout(() => {
+
+    if (sign)
+        sign.classList.add("show");
+
 }, 6000);
-
-setTimeout(() => {
-    sign.classList.add("show");
-}, 8000);
-
                         
                         const title =
                             appReveal.querySelector(
