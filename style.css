@@ -732,6 +732,16 @@ a {
         transform 4s ease;
 }
 
+.logo.show,
+.app-container h1.show,
+.app-container p.show,
+.download-btn.show,
+.signature.show {
+
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+
+}
 
 /* =========================================================
    SMALL IMPROVEMENTS / FALLBACKS
