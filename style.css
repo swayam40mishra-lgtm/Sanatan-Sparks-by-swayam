@@ -654,7 +654,7 @@ a {
   margin-bottom: 22px;
   opacity: 0;
   transform: translateY(20px) scale(0.98);
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 5s ease, transform 5s ease;
   filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.18));
 }
 
@@ -668,7 +668,7 @@ a {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.18), 0 0 22px rgba(212, 175, 55, 0.08);
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 6s ease, transform 6s ease;
 }
 
 .app-container p {
@@ -679,7 +679,7 @@ a {
   margin-bottom: 14px;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 6s ease, transform 6s ease;
 }
 
 .download-btn {
@@ -694,7 +694,7 @@ a {
   box-shadow: 0 0 18px rgba(212, 175, 55, 0.16), 0 10px 25px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 1.4s ease, transform 1.4s ease, box-shadow 0.35s ease;
+  transition: opacity 8s ease, transform 8s ease, box-shadow 0.35s ease;
 }
 
 .download-btn:hover {
@@ -708,7 +708,7 @@ a {
   color: var(--text-muted);
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
+  transition: opacity 8s ease, transform 8s ease;
 }
 
 .signature span {
